@@ -1,0 +1,25 @@
+<template>
+  <div class="about">
+    <h3>SETTINGS</h3>
+    <span>IP: </span><input type="text" v-model="websocketService.ip" />
+    <span>Port: </span><input type="text" v-model="websocketService.port" />
+    <span>Auto reconnect: </span><input type="checkbox" v-model="websocketService.autoReconnect" />
+    <input type="button" v-on:click="test" value="CLICK ME" />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Dashboard',
+  props: ['websocketService'],
+  methods: {
+    test: function () {
+      this.websocketService.saveLoginInformations();
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+
+</style>
