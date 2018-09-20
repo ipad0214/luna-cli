@@ -4,7 +4,7 @@
     <span>IP: </span><input type="text" v-model="websocketService.ip" />
     <span>Port: </span><input type="text" v-model="websocketService.port" />
     <span>Auto reconnect: </span><input type="checkbox" v-model="websocketService.autoReconnect" />
-    <input type="button" v-on:click="test" value="CLICK ME" />
+    <input type="button" v-on:click="saveAndConnect" value="CLICK ME" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   name: 'Dashboard',
   props: ['websocketService'],
   methods: {
-    test: function () {
+    saveAndConnect: function () {
       this.websocketService.saveLoginInformations();
     }
   }

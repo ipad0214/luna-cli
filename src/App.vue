@@ -25,10 +25,12 @@ export default {
 
 
 <style lang="scss">
-body {
+@import './assets/dimensions.scss';
+
+body, html {
   margin: 0;
-  top: 0;
-  left: 0;
+  height: 100%;
+  width: 100%;
   min-height: 100%;
   min-width: 100%;
 }
@@ -40,11 +42,12 @@ body {
   text-align: center;
   color: #2c3e50;
 
-  .test {
-    background-color: red;
-  }
+  height: 100%;
+  width: 100%;
 
   .content {
+    height: calc(100% - #{$statusbar-height});
+    width: 100%;
     display: flex; 
     flex-direction: row;
   }

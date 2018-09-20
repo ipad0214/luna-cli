@@ -14,11 +14,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/colors.scss';
+
 #nav {
     display: flex; 
     flex-direction: column;
     width: 4rem;
-    background-color: red;
+    background-color: $background;
     height: 100%;
     min-height: 100%;
     

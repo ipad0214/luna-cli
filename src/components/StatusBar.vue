@@ -11,11 +11,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/colors.scss';
+
 .statusbar {
     width: 100%;
     min-width: 100%;
     height: 3rem;
 
-    background-color;
+    color: $font-color;
+    background-color: $background;
 }
 </style>
