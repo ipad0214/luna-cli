@@ -3,7 +3,12 @@
         <router-link class="nav-link" to="/">
           <font-awesome-icon icon="coffee" />
         </router-link>
-        <router-link class="nav-link" to="/engines">Engine</router-link>
+        <router-link class="nav-link" to="/engines">
+          <font-awesome-icon icon="oil-can" />
+        </router-link>
+        <router-link class="nav-link" to="/settings">
+          <font-awesome-icon icon="cogs" />
+        </router-link>
     </div>
 </template>
 
@@ -19,16 +24,19 @@ export default {
 #nav {
     display: flex; 
     flex-direction: column;
-    width: 4rem;
+    width: 5rem;
     background-color: $background;
     height: 100%;
     min-height: 100%;
     
       a {
+        height: 3rem; 
+        width: 100%;
         font-weight: bold;
-        color: #2c3e50;
+        color: $link;
         &.router-link-exact-active {
-          color: #42b983;
+          color: $link;
+          background-color: $link-selected-background;
         }
       }
     }

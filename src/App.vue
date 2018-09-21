@@ -3,7 +3,7 @@
     <StatusBar />
     <div class="content">
       <NavBar />
-      <router-view/>
+      <router-view class="template-container"/>
     </div>
   </div>
 </template>
@@ -50,6 +50,10 @@ body, html {
     width: 100%;
     display: flex; 
     flex-direction: row;
+
+    .template-container {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'Settings',
   props: ['websocketService'],
   methods: {
     saveAndConnect: function () {
