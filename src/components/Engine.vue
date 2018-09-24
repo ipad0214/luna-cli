@@ -1,11 +1,12 @@
 <template>
-    
+    <span>{{this.data.value}}</span>
 </template>
 
 <script>
 export default {
     name: 'engine',
-    props: {
+    props: ['data'],
+    mounted: function () {
         
     }
 }

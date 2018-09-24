@@ -14,7 +14,7 @@ export default {
   props: ['websocketService'],
   methods: {
     saveAndConnect: function () {
-      this.websocketService.saveLoginInformations();
+      this.websocketService._onOpen();
     }
   },
   components: {

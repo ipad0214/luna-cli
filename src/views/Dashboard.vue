@@ -1,24 +1,20 @@
 <template>
-  <div class="about">
-    <h3>SETTINGS</h3>
-    <span>IP: </span><input type="text" v-model="websocketService.ip" />
-    <span>Port: </span><input type="text" v-model="websocketService.port" />
-    <span>Auto reconnect: </span><input type="checkbox" v-model="websocketService.autoReconnect" />
-    <input type="button" v-on:click="saveAndConnect" value="CLICK ME" />
+  <div class="engines">
+      <Engine v-bind:data="this.messageService.data.November" />
   </div>
 </template>
 
 <script>
+import Engine from '@/components/Engine'
+
 export default {
   name: 'Dashboard',
-  props: ['websocketService'],
-  methods: {
-    saveAndConnect: function () {
-      this.websocketService.saveLoginInformations();
-    }
+  props: ['messageService'],
+  mounted: function () {
+    console.log(this.messageService)
   },
   components: {
-    
+    Engine
   }
 }
 </script>

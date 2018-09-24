@@ -2,9 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Settings from './views/Settings.vue'
-import WebsocketService from '@/services/WebsocketService'
+import WebsocketConnection from '@/classes/WebsocketConnection'
+import Messages from '@/classes/Messages'
 
 Vue.use(Router)
+
+const WebSocketConnection = new WebsocketConnection();
+const MessageService = new Messages(WebSocketConnection);
 
 export default new Router({
   routes: [
@@ -13,7 +17,7 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
       props: (route) => ({
-        websocketService: WebsocketService,
+        messageService: MessageService, 
         ...route.params
       })
     },
@@ -21,7 +25,7 @@ export default new Router({
       path: '/engines',
       name: 'engines',
       props: (route) => ({
-        websocketService: WebsocketService,
+        messageService: MessageService,
         ...route.params
       }),
       // route level code-splitting
@@ -34,7 +38,7 @@ export default new Router({
       name: 'settings',
       component: Settings,
       props: (route) => ({
-        websocketService: WebsocketService,
+        websocketService: WebSocketConnection,
         ...route.params
       })
     }
