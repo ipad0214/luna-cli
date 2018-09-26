@@ -4,10 +4,11 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faOilCan, faCogs } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faOilCan, faCogs, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee, faOilCan, faCogs);
+library.add(faCoffee, faOilCan, faCogs, faHome
+  );
 
 Vue.use(BootstrapVue);
 

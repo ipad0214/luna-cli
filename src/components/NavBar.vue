@@ -1,7 +1,7 @@
 <template>
     <div id="nav">
         <router-link class="nav-link" to="/">
-          <font-awesome-icon icon="coffee" />
+          <font-awesome-icon icon="home" />
         </router-link>
         <router-link class="nav-link" to="/engines">
           <font-awesome-icon icon="oil-can" />
