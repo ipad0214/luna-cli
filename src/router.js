@@ -22,18 +22,6 @@ export default new Router({
       })
     },
     {
-      path: '/engines',
-      name: 'engines',
-      props: (route) => ({
-        messageService: MessageService,
-        ...route.params
-      }),
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Engines.vue')
-    },
-    {
       path: '/settings',
       name: 'settings',
       component: Settings,

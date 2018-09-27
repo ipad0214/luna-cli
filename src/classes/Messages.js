@@ -2,7 +2,8 @@
 const engine = () => {
     return {
         status: 0,
-        value: 0
+        value: 0,
+        name: ''
     }
 }
 

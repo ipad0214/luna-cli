@@ -1,6 +1,7 @@
 <template>
   <div class="statusbar">
-    this is the statusbar
+    <div class="logo"></div>
+    <div class="statusbar-content">LUNA</div>
   </div>
 </template>
 
@@ -20,5 +21,19 @@ export default {
 
     color: $font-color;
     background-color: $background;
+    display: flex; 
+    flex-direction: row;
+
+    .logo {
+      width: 5rem;
+      height: 100%;
+    }
+
+    .statusbar-content {
+      min-width: calc(100%-5rem);
+      border-bottom: 1px solid black;
+      height: 100%;
+      flex-grow: 1;
+    }
 }
 </style>

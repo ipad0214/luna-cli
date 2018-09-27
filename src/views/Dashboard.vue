@@ -1,6 +1,9 @@
 <template>
   <div class="engines">
       <Engine v-bind:data="this.messageService.data.November" />
+      <Engine v-bind:data="this.messageService.data.Echo" />
+      <Engine v-bind:data="this.messageService.data.Sierra" />
+      <Engine v-bind:data="this.messageService.data.Whisky" />
   </div>
 </template>
 
@@ -11,7 +14,10 @@ export default {
   name: 'Dashboard',
   props: ['messageService'],
   mounted: function () {
-    console.log(this.messageService)
+    this.messageService.data.November.name = "November";
+    this.messageService.data.Echo.name = "Echo";
+    this.messageService.data.Sierra.name = "Sierra";
+    this.messageService.data.Whisky.name = "Whisky";
   },
   components: {
     Engine
@@ -20,5 +26,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .engines {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 </style>

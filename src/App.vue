@@ -26,6 +26,7 @@ export default {
 
 <style lang="scss">
 @import './assets/dimensions.scss';
+@import './assets/colors.scss';
 
 body, html {
   margin: 0;
@@ -53,6 +54,7 @@ body, html {
 
     .template-container {
       width: 100%;
+      background-color: $background;
     }
   }
 }

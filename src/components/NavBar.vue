@@ -3,9 +3,6 @@
         <router-link class="nav-link" to="/">
           <font-awesome-icon icon="home" />
         </router-link>
-        <router-link class="nav-link" to="/engines">
-          <font-awesome-icon icon="oil-can" />
-        </router-link>
         <router-link class="nav-link" to="/settings">
           <font-awesome-icon icon="cogs" />
         </router-link>
@@ -18,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss"> 
 @import '@/assets/colors.scss';
 
 #nav {
@@ -28,6 +25,7 @@ export default {
     background-color: $background;
     height: 100%;
     min-height: 100%;
+    border-right: 1px solid black;
     
       a {
         height: 3rem; 
