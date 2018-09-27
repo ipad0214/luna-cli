@@ -2,9 +2,12 @@
     <div class="engine-template">
         <h3>{{this.data.name}}</h3>
         <div>
-            <b-button :size="'sm'" :variant="changeButtonBackgroundColor">
-                ONLINE
-            </b-button>
+            <b-dropdown id="ddown1" text="Dropdown Button" class="m-md-2">
+                <b-dropdown-item>Offline</b-dropdown-item>
+                <b-dropdown-item>Error</b-dropdown-item>
+                <b-dropdown-item>Standby</b-dropdown-item>
+                <b-dropdown-item>Online</b-dropdown-item>
+            </b-dropdown>
         </div>
         <div>
             <span>Value:</span><span>{{this.data.value}}</span>
@@ -19,6 +22,11 @@
 export default {
     name: 'engine',
     props: ['data'],
+    data: () => {
+        return {
+            modalShow: false
+        }
+    },
     computed: {
         changeButtonBackgroundColor: function () {
             switch(this.data.status) {
