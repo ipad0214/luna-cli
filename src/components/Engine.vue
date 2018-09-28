@@ -1,19 +1,16 @@
 <template>
     <div class="engine-template">
-        <h3>{{this.data.name}}</h3>
+        <h3>{{this.name}}</h3>
         <div>
-            <b-dropdown id="ddown1" text="Dropdown Button" class="m-md-2">
-                <b-dropdown-item>Offline</b-dropdown-item>
-                <b-dropdown-item>Error</b-dropdown-item>
-                <b-dropdown-item>Standby</b-dropdown-item>
-                <b-dropdown-item>Online</b-dropdown-item>
-            </b-dropdown>
+            <b-button :size="'small'" :variant="this.buttonVariant" @click="engineStatusChangeEvent">
+                {{this.buttonText}}
+            </b-button>
         </div>
         <div>
-            <span>Value:</span><span>{{this.data.value}}</span>
+            <span>Value:</span><span>{{this.engine.value}}</span>
         </div>
         <div>
-            <span>Status:</span><span>{{this.data.status}}</span>
+            <span>Status:</span><span>{{this.engine.status}}</span>
         </div>
     </div>
 </template>
@@ -21,24 +18,49 @@
 <script>
 export default {
     name: 'engine',
-    props: ['data'],
-    data: () => {
+    props: {
+        engineData: {
+            status: '',
+            value: 0
+        },
+        name: ''
+    },
+    data: function() {
         return {
-            modalShow: false
+            engine: this.engineData,
+            buttonText: 'OFFLINE',
+            buttonVariant: 'danger',
         }
     },
-    computed: {
-        changeButtonBackgroundColor: function () {
-            switch(this.data.status) {
-                case 0:
-                    return 'danger';
-                case 1: 
-                    return 'warning';
-                case 2:
-                    return 'primary';
-                case 3:
-                    return 'succes'
-            }
+    methods: {
+        engineStatusChangeEvent: function () {
+            this.engine.status = 3;
+        }
+    },
+    watch: {
+        'engine.status': {
+            handler: function () {
+                console.log("changeColor");
+                switch(this.engine.status) {
+                    case 0:
+                        this.buttonText = 'OFFLINE'
+                        this.buttonVariant = 'danger'
+                        return;
+                    case 1: 
+                        this.buttonText = 'IDLE' 
+                        this.buttonVariant = 'warning'
+                        return;
+                    case 2:
+                        this.buttonText = 'OFFLINE'
+                        this.buttonVariant = 'danger'
+                        return 'primary';
+                    case 3:
+                        this.buttonText = 'ONLINE'
+                        this.buttonVariant = 'success'
+                        return 'succes'
+                }
+            },
+            deep: true
         }
     }
 }

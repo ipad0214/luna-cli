@@ -1,9 +1,14 @@
 <template>
-  <div class="engines">
-      <Engine v-bind:data="this.messageService.data.November" />
-      <Engine v-bind:data="this.messageService.data.Echo" />
-      <Engine v-bind:data="this.messageService.data.Sierra" />
-      <Engine v-bind:data="this.messageService.data.Whisky" />
+  <div>
+      <div class="engines">
+        <Engine v-bind:engineData="this.messageService.data.November" name="November"/>
+        <Engine v-bind:engineData="this.messageService.data.Echo" name="Echo"/>
+        <Engine v-bind:engineData="this.messageService.data.Sierra" name="Sierra"/>
+        <Engine v-bind:engineData="this.messageService.data.Whisky" name="Whisky"/>
+        <b-button :size="'small'" :variant="'primary'" @click="startAllEngines">
+          Start all Engines
+        </b-button>
+      </div>
   </div>
 </template>
 
@@ -13,14 +18,16 @@ import Engine from '@/components/Engine'
 export default {
   name: 'Dashboard',
   props: ['messageService'],
-  mounted: function () {
-    this.messageService.data.November.name = "November";
-    this.messageService.data.Echo.name = "Echo";
-    this.messageService.data.Sierra.name = "Sierra";
-    this.messageService.data.Whisky.name = "Whisky";
-  },
   components: {
     Engine
+  },
+  methods: {
+    startAllEngines: function () {
+      this.messageService.data.November.status = Math.floor(Math.random() * 4);
+      this.messageService.data.Echo.status = Math.floor(Math.random() * 4);
+      this.messageService.data.Sierra.status = Math.floor(Math.random() * 4);
+      this.messageService.data.Whisky.status = Math.floor(Math.random() * 4);
+    }
   }
 }
 </script>
