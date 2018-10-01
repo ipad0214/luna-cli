@@ -1,10 +1,21 @@
 <template>
-  <div class="about">
+  <div class="settings">
     <h3>SETTINGS</h3>
-    <span>IP: </span><input type="text" v-model="websocketService.ip" />
-    <span>Port: </span><input type="text" v-model="websocketService.port" />
-    <span>Auto reconnect: </span><input type="checkbox" v-model="websocketService.autoReconnect" />
-    <input type="button" v-on:click="saveAndConnect" value="CLICK ME" />
+    <b-form-input v-model="websocketService.ip"
+              type="text"
+              placeholder="IP"></b-form-input>
+    <b-form-input v-model="websocketService.port"
+      type="text"
+      placeholder="Port"></b-form-input>
+    <b-form-checkbox id="autoReconnect"
+                v-model="checked"
+                value="true"
+                unchecked-value="false">
+    AutoReconnect
+    </b-form-checkbox>
+    <b-button :size="'small'" :variant="'primary'" @click="saveAndConnect">
+      Connect
+    </b-button>
   </div>
 </template>
 
@@ -17,12 +28,18 @@ export default {
       this.websocketService._onOpen();
     }
   },
-  components: {
-    
+  data: function () {
+    return {
+      checked: false,
+    }
   }
 }
 </script>
 
 <style lang="scss">
+@import '@/assets/colors.scss';
 
+.settings {
+  color: $font-color;
+}
 </style>

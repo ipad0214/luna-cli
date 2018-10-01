@@ -6,12 +6,18 @@
                 {{this.buttonText}}
             </b-button>
         </div>
-        <div>
-            <span>Value:</span><span>{{this.engine.value}}</span>
-        </div>
-        <div>
-            <span>Status:</span><span>{{this.engine.status}}</span>
-        </div>
+        <b-collapse class="mt-2" v-model="visible" id="engine-controls">
+            <div>
+                <span>Value</span>
+            </div>
+            <div>
+                <b-progress class="mt-1" :max="100" show-value>
+                <b-progress-bar :value="this.engine.value*(6/10)" variant="success"></b-progress-bar>
+                <b-progress-bar :value="this.engine.value*(2.5/10)" variant="warning"></b-progress-bar>
+                <b-progress-bar :value="this.engine.value*(1.5/10)" variant="danger"></b-progress-bar>
+                </b-progress>
+            </div>
+        </b-collapse>
     </div>
 </template>
 
@@ -30,6 +36,7 @@ export default {
             engine: this.engineData,
             buttonText: 'OFFLINE',
             buttonVariant: 'danger',
+            visible: false
         }
     },
     methods: {
@@ -40,24 +47,28 @@ export default {
     watch: {
         'engine.status': {
             handler: function () {
-                console.log("changeColor");
                 switch(this.engine.status) {
-                    case 0:
-                        this.buttonText = 'OFFLINE'
-                        this.buttonVariant = 'danger'
-                        return;
                     case 1: 
                         this.buttonText = 'IDLE' 
                         this.buttonVariant = 'warning'
-                        return;
+                        this.visible = true
+                        break;
                     case 2:
                         this.buttonText = 'OFFLINE'
                         this.buttonVariant = 'danger'
-                        return 'primary';
+                        this.visible = true
+                        break;
                     case 3:
                         this.buttonText = 'ONLINE'
                         this.buttonVariant = 'success'
-                        return 'succes'
+                        this.visible = true
+                        break;
+                    case 0:
+                    default:
+                        this.buttonText = 'OFFLINE'
+                        this.buttonVariant = 'danger'
+                        this.visible = false
+                        break;
                 }
             },
             deep: true

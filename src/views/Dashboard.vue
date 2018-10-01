@@ -27,6 +27,8 @@ export default {
       this.messageService.data.Echo.status = Math.floor(Math.random() * 4);
       this.messageService.data.Sierra.status = Math.floor(Math.random() * 4);
       this.messageService.data.Whisky.status = Math.floor(Math.random() * 4);
+
+      this.messageService.send();
     }
   }
 }

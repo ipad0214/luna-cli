@@ -16,4 +16,8 @@ export default class Messages {
             Whisky: new engine()
         }
     }
+
+    send() {
+        this.websocket.send(JSON.stringify(this.data));
+    }
 }

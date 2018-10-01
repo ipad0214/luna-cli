@@ -12,6 +12,12 @@ export default class WebsocketConnection {
         console.log("i am open");
     }
 
+    send(msg) {
+        if(this._websocket !== undefined || this._websocket.readyState !== this._websocket.OPEN) {
+            console.log(msg);
+        } 
+    }
+
     connect (ip, port) {
         this._websocket = new WebSocket("ws://" + ip + ":" + port);
         this._websocket.onopen = this._onOpen;
