@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
+import '@/classes/object-watch'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faOilCan, faCogs, faHome } from '@fortawesome/free-solid-svg-icons'

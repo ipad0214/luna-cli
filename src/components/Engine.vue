@@ -41,7 +41,12 @@ export default {
     },
     methods: {
         engineStatusChangeEvent: function () {
-            this.engine.status = 3;
+            if(this.engine.status !== 0) {
+                this.engine.status = 0;
+            } else {
+                this.engine.status = 3;
+            }
+            
         }
     },
     watch: {

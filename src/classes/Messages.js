@@ -15,6 +15,14 @@ export default class Messages {
             Sierra: new engine(),
             Whisky: new engine()
         }
+
+        this.websocket.registerMessageListener((data) => {
+            this.data = data;
+        });
+
+        Object.observe(this.data, () => {
+            this.send();
+        });
     }
 
     send() {

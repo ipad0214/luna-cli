@@ -26,6 +26,7 @@ export default {
     height: 100%;
     min-height: 100%;
     border-right: 1px solid black;
+    text-align: center;
     
       a {
         height: 3rem; 

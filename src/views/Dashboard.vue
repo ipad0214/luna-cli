@@ -21,12 +21,17 @@ export default {
   components: {
     Engine
   },
+  data: function() {
+    return {
+      
+    }
+  },
   methods: {
     startAllEngines: function () {
-      this.messageService.data.November.status = Math.floor(Math.random() * 4);
-      this.messageService.data.Echo.status = Math.floor(Math.random() * 4);
-      this.messageService.data.Sierra.status = Math.floor(Math.random() * 4);
-      this.messageService.data.Whisky.status = Math.floor(Math.random() * 4);
+      this.messageService.data.November.status = 1;
+      this.messageService.data.Echo.status = 1;
+      this.messageService.data.Sierra.status = 1;
+      this.messageService.data.Whisky.status = 1;
 
       this.messageService.send();
     }
