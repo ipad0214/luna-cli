@@ -19,10 +19,6 @@ export default class Messages {
         this.websocket.registerMessageListener((data) => {
             this.data = data;
         });
-
-        Object.observe(this.data, () => {
-            this.send();
-        });
     }
 
     send() {
