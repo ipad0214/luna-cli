@@ -9,17 +9,22 @@
           Start all Engines
         </b-button>
       </div>
+    <div class="horizon">
+        <ArtificalHorizon v-bind:gyroscopeData="this.messageService.Gyroscope" name="Gyro" />
+    </div>
   </div>
 </template>
 
 <script>
 import Engine from '@/components/Engine'
+import ArtificalHorizon from '@/components/ArtificalHorizon'
 
 export default {
   name: 'Dashboard',
   props: ['messageService'],
   components: {
-    Engine
+    Engine,
+    ArtificalHorizon
   },
   data: function() {
     return {

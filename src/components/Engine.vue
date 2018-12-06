@@ -1,20 +1,21 @@
 <template>
     <div class="engine-template">
         <h3>{{this.name}}</h3>
-        <div>
+        <div class="button-container">
             <b-button :size="'small'" :variant="this.buttonVariant" @click="engineStatusChangeEvent">
                 {{this.buttonText}}
             </b-button>
         </div>
         <b-collapse class="mt-2" v-model="visible" id="engine-controls">
             <div>
-                <span>Value</span>
+                <span>Value: </span>
+                <span>{{this.engine.value}}</span>
             </div>
             <div>
-                <b-progress class="mt-1" :max="100" show-value>
-                <b-progress-bar :value="this.engine.value*(6/10)" variant="success"></b-progress-bar>
-                <b-progress-bar :value="this.engine.value*(2.5/10)" variant="warning"></b-progress-bar>
-                <b-progress-bar :value="this.engine.value*(1.5/10)" variant="danger"></b-progress-bar>
+                <b-progress class="mt-1" :max="100">
+                <b-progress-bar :value="this.engine.value*(6/10)" label="" variant="success"></b-progress-bar>
+                <b-progress-bar :value="this.engine.value*(2.5/10)" label="" variant="warning"></b-progress-bar>
+                <b-progress-bar :value="this.engine.value*(1.5/10)" label="" variant="danger"></b-progress-bar>
                 </b-progress>
             </div>
         </b-collapse>
@@ -89,7 +90,15 @@ export default {
         height: 10rem; 
         width: 10rem;
 
+        padding-left: 4px;
+        padding-right: 4px;
+
         background-color: $link-selected-background;
         border: 1px solid black;
+
+        .button-container {
+            width: 100%;
+            text-align: center;
+        }
     }
 </style>
