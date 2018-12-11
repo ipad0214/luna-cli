@@ -31,7 +31,7 @@ export default {
   props: ['websocketService'],
   methods: {
     saveAndConnect: function () {
-      this.websocketService._onOpen();
+      this.websocketService.connect();
     }
   },
   data: function () {

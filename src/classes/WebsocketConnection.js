@@ -9,9 +9,9 @@ export default class WebsocketConnection {
     constructor()  {
         this._listeners = [];
         this._websocket = null;
-        this.connectionStatus = { status: connectionStatus.OFFLINE };
-        this.port = 0;
-        this.ip = "192.168.2.115";
+        //this.connectionStatus = { status: connectionStatus.OFFLINE };
+        this.port = 7004;
+        this.ip = "127.0.0.1";
         this.autoReconnect = false;
     }
 
@@ -20,7 +20,7 @@ export default class WebsocketConnection {
     }
 
     _onOpen() {
-        this.connectionStatus.status = connectionStatus.ONLINE;
+        //this.connectionStatus.status = connectionStatus.ONLINE;
         console.log("i am open");
     }
 
@@ -31,11 +31,11 @@ export default class WebsocketConnection {
     }
 
     _onClose() {
-        this.connectionStatus.status = connectionStatus.OFFLINE;
+        //this.connectionStatus.status = connectionStatus.OFFLINE;
     }
 
     _onError() {
-        this.connectionStatus.status = connectionStatus.ERROR;
+        //this.connectionStatus.status = connectionStatus.ERROR;
     }
 
     send(msg) {
@@ -44,8 +44,8 @@ export default class WebsocketConnection {
         } 
     }
 
-    connect (ip, port) {
-        this._websocket = new WebSocket("ws://" + ip + ":" + port);
+    connect () {
+        this._websocket = new WebSocket("ws://" + this.ip + ":" + this.port);
         this._websocket.onopen = this._onOpen;
         this._websocket.onmessage = this._onMessage;
         this._websocket.onerror = this._onError;
