@@ -1,6 +1,7 @@
 <template>
     <div class="gyroscope-template">
         <h3>{{this.name}}</h3>
+        <img :src="this.ip" />
     </div>
 </template>
 
@@ -13,11 +14,15 @@ export default {
             yaw: 0,
             roll: 0
         },
+        websocketConnection: {
+            ip: ''
+        },
         name: ''
     },
     data: function() {
         return {
             gyroscope: this.gyroscopeData,
+            ip: 'http://' + this.websocketConnection.ip + ':50000'
         }
     }
 }

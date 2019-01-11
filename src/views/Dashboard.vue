@@ -10,7 +10,7 @@
         </b-button>
       </div>
     <div class="horizon">
-        <ArtificalHorizon v-bind:gyroscopeData="this.messageService.Gyroscope" name="Gyro" />
+        <ArtificalHorizon v-bind:gyroscopeData="this.messageService.Gyroscope" v-bind:websocketConnection="this.messageService.websocket" name="Gyro" />
     </div>
   </div>
 </template>
