@@ -1,7 +1,12 @@
 <template>
     <div class="gyroscope-template">
-        <h3>{{this.name}}</h3>
-        <img :src="this.ip" />
+        <div class="video-wrapper">
+            <img :src="getImage('stall_indicator')" class="stall-indicator ah-position"/>
+            <img :src="getImage('artifical_horzion')" class="artifical-horizon ah-position"/>
+            <img :src="getImage('tilt_angle')" class="tilt-angle ah-position"/>
+            <img :src="getImage('turn_indicator')" class="turn-indicator ah-position"/>
+            <img :src="this.ip" class="video"/>
+        </div>
     </div>
 </template>
 
@@ -24,6 +29,11 @@ export default {
             gyroscope: this.gyroscopeData,
             ip: 'http://' + this.websocketConnection.ip + ':50000'
         }
+    },
+    methods: {
+        getImage(image) {
+            return '../img/' + image + '.svg';
+        }
     }
 }
 </script>
@@ -32,9 +42,53 @@ export default {
     @import '@/assets/colors.scss';
 
     .gyroscope-template {
-        width: 20rem;
-        height: 20rem;
+        max-width: 16rem;
+        max-height: 9rem;
 
-        background-color: red;
+        .video-wrapper {
+            min-width: 32rem;
+            min-height: 9rem;
+            position: relative;
+            display:inline-block;
+            overflow: hidden; 
+            margin: 0;
+
+            .ah-position {
+                position: relative;
+            }
+
+            img {
+                display: block;
+                min-height: 100%;
+                min-width: 100%;
+                z-index: 100;
+            }
+
+            .video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+            }
+
+            .artifical-horizon {
+                height: 3rem;
+                top: 11.5rem;
+            }
+
+            .tilt-angle {
+                height: 20rem;
+            }
+
+            .turn-indicator {
+                height: 5rem;
+                top: -13rem;
+            }
+
+            .stall-indicator {
+                height: 2rem;
+                top: 14rem;
+            }
+        }
     }
 </style>

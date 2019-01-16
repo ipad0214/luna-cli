@@ -1,16 +1,16 @@
 
 const engine = () => {
     return {
-        status: 0,
-        value: 50
+        Status: 0,
+        Value: 50
     }
 }
 
 const gyroscope = () => {
     return {
-        pitch: 0,
-        yaw: 0,
-        roll: 0
+        Pitch: 0,
+        Yaw: 0,
+        Roll: 0
     }
 }
 
@@ -22,7 +22,7 @@ export default class Messages {
             Echo: new engine(),
             Sierra: new engine(),
             Whisky: new engine(),
-            Gyroscope: new Gyroscope()
+            Gyroscope: new gyroscope()
         }
 
         this.websocket.registerMessageListener((data) => {

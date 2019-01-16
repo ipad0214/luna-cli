@@ -9,9 +9,16 @@ export default class WebsocketConnection {
     constructor()  {
         this._listeners = [];
         this._websocket = null;
+        this.ip = null;
+        this.port = null;
         //this.connectionStatus = { status: connectionStatus.OFFLINE };
-        this.port = 7004;
-        this.ip = "127.0.0.1";
+        let connectionCredentials = localStorage.getItem("connectionCredentials");
+        console.log(connectionCredentials.ip);
+        if(connectionCredentials !== null) {
+            this.port = connectionCredentials.port;
+            this.ip = connectionCredentials.ip;
+        }
+        
         this.autoReconnect = false;
     }
 
@@ -22,6 +29,12 @@ export default class WebsocketConnection {
     _onOpen() {
         //this.connectionStatus.status = connectionStatus.ONLINE;
         console.log("i am open");
+        let credentials = JSON.stringify({
+            ip: this.ip,
+            port: this.port
+        });
+
+        localStorage.setItem("connectionCredentials", credentials);
     }
 
     _onMessage(data) {
@@ -42,6 +55,8 @@ export default class WebsocketConnection {
         if(this._websocket !== undefined || this._websocket.readyState !== this._websocket.OPEN) {
             console.log(msg);
         } 
+
+        this._websocket.send(msg);
     }
 
     connect () {

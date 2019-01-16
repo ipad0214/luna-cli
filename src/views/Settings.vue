@@ -3,11 +3,11 @@
     <div class="websocket">
       <h3>Websocket</h3>
       <span>IP:</span>
-      <b-form-input v-model="websocketService.ip"
+      <b-form-input v-model.lazy="websocketService.ip"
                 type="text"
                 placeholder="IP"></b-form-input>
       <span>Port:</span>
-      <b-form-input v-model="websocketService.port"
+      <b-form-input v-model.lazy="websocketService.port"
         type="text"
         placeholder="Port"></b-form-input>
       <div class="controls">
@@ -20,6 +20,7 @@
         <b-button :size="'small'" :variant="'primary'" @click="saveAndConnect">
           Save & Connect
         </b-button>
+        <pre> {{ $data }} </pre>
       </div>
     </div>
   </div>
