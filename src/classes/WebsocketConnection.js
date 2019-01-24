@@ -1,4 +1,4 @@
-import * as connectionStatus from './ConnectionStatus';
+import * as connectionStates from './ConnectionStatus';
 
 export default class WebsocketConnection {
     constructor(connectionCredentials={
@@ -10,7 +10,7 @@ export default class WebsocketConnection {
         this._websocket = null;
         this.ip = connectionCredentials.ip;
         this.port = connectionCredentials.port;
-        this.connectionStatus = connectionStatus.OFFLINE;       
+        this.connectionStatus = connectionStates.OFFLINE;       
 
         if(connectionCredentials.autoReconnect !== "false") {
             this.connect();
@@ -22,25 +22,26 @@ export default class WebsocketConnection {
     }
 
     _onOpen() {
-        this.connectionStatus = connectionStatus.ONLINE;
+        console.log(this);
+        connectionStatus = connectionStates.ONLINE;
     }
 
     _onMessage(data) {
-        this._listeners.forEach((func) => {
+        _listeners.forEach((func) => {
             func(data);
         });
     }
 
     _onClose() {
-        this.connectionStatus = connectionStatus.OFFLINE;
+        connectionStatus = connectionStates.OFFLINE;
     }
 
     _onError() {
-        this.connectionStatus = connectionStatus.ERROR;
+        connectionStatus = connectionStates.ERROR;
     }
 
     send(msg) {
-        if(this._websocket === undefined || this._websocket === null || this._websocket.readyState === this._websocket.CLOSED) {
+        if(_websocket === undefined || _websocket === null || _websocket.readyState === _websocket.CLOSED) {
             console.log("the websocket ist not connected cant send messages");
             return;
         } 
