@@ -30,6 +30,9 @@ export default {
             status: '',
             value: 0
         },
+        messageService: {
+            update: ''
+        },
         name: ''
     },
     data: function() {
@@ -76,6 +79,12 @@ export default {
                         this.visible = false
                         break;
                 }
+            },
+            deep: true
+        },
+        'engine.value': {
+            handler: function () {
+                this.update();
             },
             deep: true
         }

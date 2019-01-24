@@ -3,11 +3,11 @@
     <div class="websocket">
       <h3>Websocket</h3>
       <span>IP:</span>
-      <b-form-input v-model.lazy="websocketService.ip"
+      <b-form-input v-model="ip"
                 type="text"
                 placeholder="IP"></b-form-input>
       <span>Port:</span>
-      <b-form-input v-model.lazy="websocketService.port"
+      <b-form-input v-model="port"
         type="text"
         placeholder="Port"></b-form-input>
       <div class="controls">
@@ -15,12 +15,14 @@
                   v-model="checked"
                   value="true"
                   unchecked-value="false">
-        AutoReconnect
+          AutoReconnect
         </b-form-checkbox>
         <b-button :size="'small'" :variant="'primary'" @click="saveAndConnect">
-          Save & Connect
+          Connect
         </b-button>
-        <pre> {{ $data }} </pre>
+        <b-button :size="'small'" :variant="'primary'" @click="saveCredentials">
+          Save Credentials to Storeage
+        </b-button>
       </div>
     </div>
   </div>
@@ -33,11 +35,41 @@ export default {
   methods: {
     saveAndConnect: function () {
       this.websocketService.connect();
+    },
+    saveCredentials: function () {
+      let credentialsObj = {
+        ip: this.websocketService.ip,
+        port: this.websocketService.port,
+        autoReconnect: this.checked
+      }
+
+      localStorage.setItem("credentials", JSON.stringify(credentialsObj));
+    }
+  },
+  mounted: function() {
+    // load credentials if exists
+    let credentials = JSON.parse(localStorage.getItem("credentials"));
+    if(credentials === null || credentials === undefined) {
+      return;
+    }
+
+    this.ip = credentials.ip;
+    this.port = credentials.port;
+    this.checked = credentials.autoReconnect;
+  },
+  watch: {
+    ip: function (value) {
+      this.websocketService.ip = value;
+    },
+    port: function (value) {
+      this.websocketService.port = value;
     }
   },
   data: function () {
     return {
       checked: false,
+      ip: '',
+      port: ''
     }
   }
 }

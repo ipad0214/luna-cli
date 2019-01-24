@@ -1,25 +1,20 @@
-
-const connectionStatus = {
-    ONLINE: 2,
-    OFFLINE: 0,
-    ERROR: 1
-}
+import * as connectionStatus from './ConnectionStatus';
 
 export default class WebsocketConnection {
-    constructor()  {
+    constructor(connectionCredentials={
+        ip: "",
+        port: "",
+        autoReconnect: false
+    })  {
         this._listeners = [];
         this._websocket = null;
-        this.ip = null;
-        this.port = null;
-        //this.connectionStatus = { status: connectionStatus.OFFLINE };
-        let connectionCredentials = localStorage.getItem("connectionCredentials");
-        console.log(connectionCredentials.ip);
-        if(connectionCredentials !== null) {
-            this.port = connectionCredentials.port;
-            this.ip = connectionCredentials.ip;
+        this.ip = connectionCredentials.ip;
+        this.port = connectionCredentials.port;
+        this.connectionStatus = connectionStatus.OFFLINE;       
+
+        if(connectionCredentials.autoReconnect !== "false") {
+            this.connect();
         }
-        
-        this.autoReconnect = false;
     }
 
     registerMessageListener(func) {
@@ -27,14 +22,7 @@ export default class WebsocketConnection {
     }
 
     _onOpen() {
-        //this.connectionStatus.status = connectionStatus.ONLINE;
-        console.log("i am open");
-        let credentials = JSON.stringify({
-            ip: this.ip,
-            port: this.port
-        });
-
-        localStorage.setItem("connectionCredentials", credentials);
+        this.connectionStatus = connectionStatus.ONLINE;
     }
 
     _onMessage(data) {
@@ -44,16 +32,17 @@ export default class WebsocketConnection {
     }
 
     _onClose() {
-        //this.connectionStatus.status = connectionStatus.OFFLINE;
+        this.connectionStatus = connectionStatus.OFFLINE;
     }
 
     _onError() {
-        //this.connectionStatus.status = connectionStatus.ERROR;
+        this.connectionStatus = connectionStatus.ERROR;
     }
 
     send(msg) {
-        if(this._websocket !== undefined || this._websocket.readyState !== this._websocket.OPEN) {
-            console.log(msg);
+        if(this._websocket === undefined || this._websocket === null || this._websocket.readyState === this._websocket.CLOSED) {
+            console.log("the websocket ist not connected cant send messages");
+            return;
         } 
 
         this._websocket.send(msg);

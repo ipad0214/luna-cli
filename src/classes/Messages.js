@@ -30,7 +30,7 @@ export default class Messages {
         });
     }
 
-    send() {
+    update() {
         this.websocket.send(JSON.stringify(this.data));
     }
 }

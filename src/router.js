@@ -3,12 +3,21 @@ import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Settings from './views/Settings.vue'
 import WebsocketConnection from '@/classes/WebsocketConnection'
+import * as connectionStatus from '@/classes/ConnectionStatus';
 import Messages from '@/classes/Messages'
 
 Vue.use(Router)
 
-const WebSocketConnection = new WebsocketConnection();
+let connectionCredentials = localStorage.getItem("credentials");
+if (connectionCredentials) {
+  connectionCredentials = JSON.parse(connectionCredentials);
+  console.log(connectionCredentials);
+}
+
+const WebSocketConnection = new WebsocketConnection(connectionCredentials);
 const MessageService = new Messages(WebSocketConnection);
+
+
 
 export default new Router({
   routes: [

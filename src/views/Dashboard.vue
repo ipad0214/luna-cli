@@ -1,10 +1,10 @@
 <template>
   <div>
       <div class="engines">
-        <Engine v-bind:engineData="this.messageService.data.November" name="November"/>
-        <Engine v-bind:engineData="this.messageService.data.Echo" name="Echo"/>
-        <Engine v-bind:engineData="this.messageService.data.Sierra" name="Sierra"/>
-        <Engine v-bind:engineData="this.messageService.data.Whisky" name="Whisky"/>
+        <Engine v-bind:engineData="this.messageService.data.November" v-bind:messageService="this.messageService" name="November"/>
+        <Engine v-bind:engineData="this.messageService.data.Echo" v-bind:messageService="this.messageService" name="Echo"/>
+        <Engine v-bind:engineData="this.messageService.data.Sierra" v-bind:messageService="this.messageService" name="Sierra"/>
+        <Engine v-bind:engineData="this.messageService.data.Whisky" v-bind:messageService="this.messageService" name="Whisky"/>
         <b-button :size="'small'" :variant="'primary'" @click="startAllEngines">
           Start all Engines
         </b-button>
@@ -38,7 +38,7 @@ export default {
       this.messageService.data.Sierra.status = 1;
       this.messageService.data.Whisky.status = 1;
 
-      this.messageService.send();
+      this.messageService.update();
     }
   }
 }

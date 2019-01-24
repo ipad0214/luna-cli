@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import * as connectionStatus from '@/classes/ConnectionStatus'
+
 export default {
     name: 'artificalHorizon',
     props: {
@@ -22,12 +24,20 @@ export default {
         websocketConnection: {
             ip: ''
         },
-        name: ''
+        name: '',
+        connectionStatus: {}
     },
     data: function() {
         return {
             gyroscope: this.gyroscopeData,
-            ip: 'http://' + this.websocketConnection.ip + ':50000'
+            
+        }
+    },
+    computed: {
+        ip: function () {
+            if (this.websocketConnection.connectionStatus === connectionStatus.ONLINE) {
+                return "ws://" + this.websocketConnection.ip + ":" + this.websocketConnection.port;
+            }
         }
     },
     methods: {
