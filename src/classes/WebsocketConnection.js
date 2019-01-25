@@ -5,7 +5,8 @@ export default class WebsocketConnection {
         ip: "",
         port: "",
         autoReconnect: false
-    })  {
+    }, notificationModel)  {
+        this._notifcationModel = notificationModel;
         this._listeners = [];
         this._websocket = null;
         this.ip = connectionCredentials.ip;
@@ -21,27 +22,41 @@ export default class WebsocketConnection {
         this._listeners.push(func);
     }
 
-    _onOpen() {
-        console.log(this);
-        connectionStatus = connectionStates.ONLINE;
+    _onOpen = () => {
+        this.connectionStatus = connectionStates.ONLINE;
+        this._notifcationModel.addNotification({
+            name: 'Websocket connected',
+            status: 'success',
+            icon: 'test'
+        })
     }
 
-    _onMessage(data) {
+    _onMessage = (data) => {
         _listeners.forEach((func) => {
             func(data);
         });
     }
-
-    _onClose() {
-        connectionStatus = connectionStates.OFFLINE;
+    
+    _onClose = () => {
+        this.connectionStatus = connectionStates.OFFLINE;
+        this._notifcationModel.addNotification({
+            name: 'Websocket disconnected',
+            status: 'warning',
+            icon: 'test'
+        })
     }
 
-    _onError() {
-        connectionStatus = connectionStates.ERROR;
+    _onError = () => {
+        this.connectionStatus = connectionStates.ERROR;
+        this._notifcationModel.addNotification({
+            name: 'Websocket disconnected unexpected',
+            status: 'error',
+            icon: 'test'
+        })
     }
 
-    send(msg) {
-        if(_websocket === undefined || _websocket === null || _websocket.readyState === _websocket.CLOSED) {
+    send = (msg) => {
+        if(this._websocket === undefined || this._websocket === null || this._websocket.readyState === this._websocket.CLOSED) {
             console.log("the websocket ist not connected cant send messages");
             return;
         } 
@@ -49,7 +64,7 @@ export default class WebsocketConnection {
         this._websocket.send(msg);
     }
 
-    connect () {
+    connect() {
         this._websocket = new WebSocket("ws://" + this.ip + ":" + this.port);
         this._websocket.onopen = this._onOpen;
         this._websocket.onmessage = this._onMessage;

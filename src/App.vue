@@ -4,6 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
+      <Notification v-bind:notifications="this.notifications"/>
     </div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import StatusBar from '@/components/StatusBar'
 import NavBar from '@/components/NavBar'
+import Notification from '@/components/Notification'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -18,7 +20,19 @@ export default {
   name: 'app',
   components: {
     StatusBar,
-    NavBar
+    NavBar,
+    Notification
+  },
+  props: {
+    // notifications
+  },
+  data: function () {
+    return {
+      notifications: 'test'//this.props.notifications
+    }
+  },
+  mounted: function () {
+    console.log("Hello World");
   }
 }
 </script>

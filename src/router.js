@@ -2,42 +2,40 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import Settings from './views/Settings.vue'
-import WebsocketConnection from '@/classes/WebsocketConnection'
-import * as connectionStatus from '@/classes/ConnectionStatus';
-import Messages from '@/classes/Messages'
 
 Vue.use(Router)
 
-let connectionCredentials = localStorage.getItem("credentials");
-if (connectionCredentials) {
-  connectionCredentials = JSON.parse(connectionCredentials);
-  console.log(connectionCredentials);
+export default class RouterFactory {
+  constructor(notificationModel, websocketConnection, messageService) {
+    this._notifcationModel = notificationModel;
+    this._messageService = messageService;
+    this._websocketConnection = websocketConnection;
+  }
+
+  createRouter () {
+    return new Router({
+      routes: [
+        {
+          path: '/',
+          name: 'dashboard',
+          component: Dashboard,
+          props: (route) => ({
+            messageService: this._messageService,
+            notifications: this._notifcationModel,
+            ...route.params
+          })
+        },
+        {
+          path: '/settings',
+          name: 'settings',
+          component: Settings,
+          props: (route) => ({
+            websocketService: this._websocketConnection,
+            notifications: this._notifcationModel,
+            ...route.params
+          })
+        }
+      ]
+    })
+  }
 }
-
-const WebSocketConnection = new WebsocketConnection(connectionCredentials);
-const MessageService = new Messages(WebSocketConnection);
-
-
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'dashboard',
-      component: Dashboard,
-      props: (route) => ({
-        messageService: MessageService, 
-        ...route.params
-      })
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: Settings,
-      props: (route) => ({
-        websocketService: WebSocketConnection,
-        ...route.params
-      })
-    }
-  ]
-})

@@ -35,8 +35,6 @@ export default {
     },
     computed: {
         ip: function () {
-            console.log("UPDATED");
-            console.log(this.websocketConnection.connectionStatus);
             if (this.websocketConnection.connectionStatus === connectionStatus.ONLINE) {
                 return "ws://" + this.websocketConnection.ip + ":50000";
             }
