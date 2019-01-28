@@ -13,7 +13,6 @@ import Messages from '@/classes/Messages'
 let connectionCredentials = localStorage.getItem("credentials");
 if (connectionCredentials) {
   connectionCredentials = JSON.parse(connectionCredentials);
-  console.log(connectionCredentials);
 }
 
 library.add(faCoffee, faOilCan, faCogs, faHome);
@@ -32,10 +31,9 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  render: h => h(App),
-  data: function() {
-    return {
-      notifications: Notifications
+  render: h => h(App, {
+    props: {
+      notifications: notifications
     }
-  }
+  })
 }).$mount('#app')

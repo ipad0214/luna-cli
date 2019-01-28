@@ -36,7 +36,7 @@ export default {
     computed: {
         ip: function () {
             if (this.websocketConnection.connectionStatus === connectionStatus.ONLINE) {
-                return "ws://" + this.websocketConnection.ip + ":50000";
+                return "http://" + this.websocketConnection.ip + ":50000";
             }
         }
     },

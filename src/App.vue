@@ -4,7 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <Notification v-bind:notifications="this.notifications"/>
+      <Notification v-bind:notifications="notifications"/>
     </div>
   </div>
 </template>
@@ -23,16 +23,11 @@ export default {
     NavBar,
     Notification
   },
-  props: {
-    // notifications
-  },
-  data: function () {
-    return {
-      notifications: 'test'//this.props.notifications
-    }
+  props:  {
+    notifications: Object
   },
   mounted: function () {
-    console.log("Hello World");
+    console.log(this.props);
   }
 }
 </script>

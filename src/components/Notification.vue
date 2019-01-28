@@ -8,18 +8,19 @@
 
 export default {
     name: 'notification',
-    props: {
-        notificationModel: {
-            notifications: []
+    props: ['notifications'],
+    data: function () {
+        return {
+            notificaions: this.notifications
         }
-    },
-    data: {
-        //notifications = this.notificationModel.notifications
     },
     watch: {
         notifications: function () {
             console.log(this.notifications);
         }
+    },
+    mounted: function () {
+        console.log(this.notificaions);
     }
 
 }
