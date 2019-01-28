@@ -1,4 +1,4 @@
-
+import Vue from 'vue'
 
 export default class NotificationModel {
     constructor() {
@@ -8,8 +8,6 @@ export default class NotificationModel {
     addNotification(obj) {
         //obj.entryTime = new DateTime();
         this.notifications.push(obj);
-
-        console.log(this.notifications);
     }
 
     _notificationsProcess() {

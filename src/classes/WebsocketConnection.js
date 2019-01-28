@@ -1,4 +1,5 @@
 import * as connectionStates from './ConnectionStatus';
+import Vue from 'vue';
 
 export default class WebsocketConnection {
     constructor(connectionCredentials={
@@ -16,6 +17,9 @@ export default class WebsocketConnection {
         if(connectionCredentials.autoReconnect !== "false") {
             this.connect();
         }
+
+        console.log(Vue.notify);
+        console.log(this.$notify);
     }
 
     registerMessageListener(func) {
@@ -26,8 +30,8 @@ export default class WebsocketConnection {
         this.connectionStatus = connectionStates.ONLINE;
         this._notifcationModel.addNotification({
             name: 'Websocket connected',
-            status: 'success',
-            icon: 'test'
+            text: 'Connection to drone established',
+            status: 'success'
         })
     }
 
@@ -41,8 +45,8 @@ export default class WebsocketConnection {
         this.connectionStatus = connectionStates.OFFLINE;
         this._notifcationModel.addNotification({
             name: 'Websocket disconnected',
-            status: 'warning',
-            icon: 'test'
+            text: 'Connection to drone terminated',
+            status: 'warning'
         })
     }
 
@@ -50,9 +54,9 @@ export default class WebsocketConnection {
         this.connectionStatus = connectionStates.ERROR;
         this._notifcationModel.addNotification({
             name: 'Websocket disconnected unexpected',
-            status: 'error',
-            icon: 'test'
-        })
+            text: 'Websocket connection failure. Drone out of control',
+            status: 'error'
+        });
     }
 
     send = (msg) => {
@@ -70,5 +74,11 @@ export default class WebsocketConnection {
         this._websocket.onmessage = this._onMessage;
         this._websocket.onerror = this._onError;
         this._websocket.onclose = this._onClose;
+
+        this._notifcationModel.addNotification({
+            name: 'Websocket cant connect',
+            text: 'Make sure that your drone and the remote control is booted correctly',
+            status: 'error'
+        });
     }
 }

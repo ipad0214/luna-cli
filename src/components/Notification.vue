@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="notifactions">
         Hello world
     </div>
 </template>
@@ -29,4 +29,11 @@ export default {
 <style lang="scss">
     @import '@/assets/colors.scss';
 
+    .notifactions {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 20rem;
+        background-color: red;
+    }
 </style>

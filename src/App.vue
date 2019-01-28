@@ -4,7 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <Notification v-bind:notifications="notifications"/>
+      <notifcations group="notify"/>
     </div>
   </div>
 </template>
@@ -22,12 +22,6 @@ export default {
     StatusBar,
     NavBar,
     Notification
-  },
-  props:  {
-    notifications: Object
-  },
-  mounted: function () {
-    console.log(this.props);
   }
 }
 </script>

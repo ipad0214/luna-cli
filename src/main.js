@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import RouterFactory from './router'
 import BootstrapVue from 'bootstrap-vue'
+import Notifications from 'vue-notification'
 
 import NotificationModel from '@/models/NotificationModel'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -24,6 +25,7 @@ const routerFactory = new RouterFactory(notifications, websocketConnection, mess
 const router = routerFactory.createRouter();
 
 Vue.use(BootstrapVue);
+Vue.use(Notifications);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
