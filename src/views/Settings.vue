@@ -34,7 +34,7 @@
 <script>
 export default {
   name: 'Settings',
-  props: ['websocketService'],
+  props: ['websocketService', 'notificationModel'],
   methods: {
     saveAndConnect: function () {
       this.websocketService.connect();
@@ -49,10 +49,12 @@ export default {
       localStorage.setItem("credentials", JSON.stringify(credentialsObj));
     },
     testNotify: function () {
-      let title = "Test123";
-      let text = "Das ist ein Test";
-      let group = "notify";
-      this.$notify({title, text, group});
+      let title = "this is a test";
+      let text = "this is also a test";
+      this.notificationModel.createSuccessNotification({
+        title,
+        text
+      });
     }
   },
   mounted: function() {

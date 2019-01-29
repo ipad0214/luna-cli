@@ -1,5 +1,4 @@
 import * as connectionStates from './ConnectionStatus';
-import Vue from 'vue';
 
 export default class WebsocketConnection {
     constructor(connectionCredentials={
@@ -17,9 +16,6 @@ export default class WebsocketConnection {
         if(connectionCredentials.autoReconnect !== "false") {
             this.connect();
         }
-
-        console.log(Vue.notify);
-        console.log(this.$notify);
     }
 
     registerMessageListener(func) {
@@ -28,10 +24,9 @@ export default class WebsocketConnection {
 
     _onOpen = () => {
         this.connectionStatus = connectionStates.ONLINE;
-        this._notifcationModel.addNotification({
-            name: 'Websocket connected',
-            text: 'Connection to drone established',
-            status: 'success'
+        this._notifcationModel.createSuccessNotification({
+            title: 'Websocket connected',
+            text: 'Connection to drone established'
         })
     }
 
@@ -43,25 +38,26 @@ export default class WebsocketConnection {
     
     _onClose = () => {
         this.connectionStatus = connectionStates.OFFLINE;
-        this._notifcationModel.addNotification({
-            name: 'Websocket disconnected',
-            text: 'Connection to drone terminated',
-            status: 'warning'
-        })
+        this._notifcationModel.createWarningNotification({
+            title: 'Websocket disconnected',
+            text: 'Connection to drone terminated'
+        });
     }
 
     _onError = () => {
         this.connectionStatus = connectionStates.ERROR;
-        this._notifcationModel.addNotification({
-            name: 'Websocket disconnected unexpected',
-            text: 'Websocket connection failure. Drone out of control',
-            status: 'error'
+        this._notifcationModel.createErrorNotification({
+            title: 'Websocket disconnected unexpected',
+            text: 'Websocket connection failure. Drone out of control'
         });
     }
 
     send = (msg) => {
         if(this._websocket === undefined || this._websocket === null || this._websocket.readyState === this._websocket.CLOSED) {
-            console.log("the websocket ist not connected cant send messages");
+            this._notifcationModel.createWarningNotification({
+                title: 'Websocket is not connected',
+                text: 'Create a conneciton to start again'
+            })
             return;
         } 
 
@@ -75,10 +71,9 @@ export default class WebsocketConnection {
         this._websocket.onerror = this._onError;
         this._websocket.onclose = this._onClose;
 
-        this._notifcationModel.addNotification({
+        this._notifcationModel.createErrorNotification({
             name: 'Websocket cant connect',
-            text: 'Make sure that your drone and the remote control is booted correctly',
-            status: 'error'
+            text: 'Make sure that your drone and the remote control is booted correctly'
         });
     }
 }

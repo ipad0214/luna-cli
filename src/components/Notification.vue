@@ -7,20 +7,19 @@
 <script>
 
 export default {
-    name: 'notification',
-    props: ['notifications'],
-    data: function () {
-        return {
-            notificaions: this.notifications
-        }
-    },
+    name: 'Notification',
+    props: ['notificationModel'],
     watch: {
-        notifications: function () {
-            console.log(this.notifications);
+        notificationsModel: {
+            handler(val, oldVal) {
+                console.log("item changed");
+                console.log(val);
+            },
+            deep: true
         }
     },
     mounted: function () {
-        console.log(this.notificaions);
+        console.log(this.notificationModel.notifications);
     }
 
 }

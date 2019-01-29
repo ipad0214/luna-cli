@@ -5,12 +5,28 @@ export default class NotificationModel {
         this.notifications = new Array();
     }
 
-    addNotification(obj) {
-        //obj.entryTime = new DateTime();
-        this.notifications.push(obj);
-        Vue.notify({
-            title: obj.title,
-            text: obj.text
-        })
+    addNotification(notification, type='') {
+        this.notifications.push(notification);
+        let title = notification.title;
+        let text = notification.text;
+        let position = 'top right';
+        let group = 'standard';
+        Vue.notify({ title, text, position, type, group });
+    }
+
+    createSuccessNotification(notification) {
+        this.addNotification(notification, 'success');
+    }
+
+    createWarningNotification(notification) {
+        this.addNotification(notification, 'warning');
+    }
+
+    createErrorNotification(notification) {
+        this.addNotification(notification, 'error');
+    }
+
+    deleteNotification() {
+
     }
 }

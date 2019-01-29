@@ -4,7 +4,8 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <notifications group="notify"/>
+      <notifications group="standard"/>
+      <Notification v-bind:notificationModel="this.notificationModel"/>
     </div>
   </div>
 </template>
@@ -18,9 +19,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
   name: 'app',
+  props: ['notificationModel'],
   components: {
     StatusBar,
-    NavBar
+    NavBar,
+    Notification
   }
 }
 </script>
@@ -29,6 +32,7 @@ export default {
 <style lang="scss">
 @import './assets/dimensions.scss';
 @import './assets/colors.scss';
+@import './assets/notifications.scss';
 
 body, html {
   margin: 0;
