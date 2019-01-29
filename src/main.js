@@ -18,16 +18,16 @@ if (connectionCredentials) {
 
 library.add(faCoffee, faOilCan, faCogs, faHome);
 
-const notifications = new NotificationModel();
-const websocketConnection = new WebsocketConnection(connectionCredentials, notifications);
-const messageService = new Messages(websocketConnection);
-const routerFactory = new RouterFactory(notifications, websocketConnection, messageService);
-const router = routerFactory.createRouter();
-
 Vue.use(BootstrapVue);
 Vue.use(Notifications);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+const notificationModel = new NotificationModel();
+const websocketConnection = new WebsocketConnection(connectionCredentials, notificationModel);
+const messageService = new Messages(websocketConnection);
+const routerFactory = new RouterFactory(notificationModel, websocketConnection, messageService);
+const router = routerFactory.createRouter();
 
 Vue.config.productionTip = false
 
@@ -35,7 +35,7 @@ new Vue({
   router,
   render: h => h(App, {
     props: {
-      notifications: notifications
+      notificationModel: notificationModel
     }
   })
 }).$mount('#app')

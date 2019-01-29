@@ -23,6 +23,9 @@
         <b-button :size="'small'" :variant="'primary'" @click="saveCredentials">
           Save Credentials to Storeage
         </b-button>
+        <b-button :size="'small'" :variant="'primary'" @click="testNotify">
+          Test Notification
+        </b-button>
       </div>
     </div>
   </div>
@@ -44,6 +47,12 @@ export default {
       }
 
       localStorage.setItem("credentials", JSON.stringify(credentialsObj));
+    },
+    testNotify: function () {
+      let title = "Test123";
+      let text = "Das ist ein Test";
+      let group = "notify";
+      this.$notify({title, text, group});
     }
   },
   mounted: function() {

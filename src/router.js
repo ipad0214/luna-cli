@@ -21,7 +21,7 @@ export default class RouterFactory {
           component: Dashboard,
           props: (route) => ({
             messageService: this._messageService,
-            notifications: this._notifcationModel,
+            notificationModel: this._notifcationModel,
             ...route.params
           })
         },
@@ -31,7 +31,7 @@ export default class RouterFactory {
           component: Settings,
           props: (route) => ({
             websocketService: this._websocketConnection,
-            notifications: this._notifcationModel,
+            notificationModel: this._notifcationModel,
             ...route.params
           })
         }

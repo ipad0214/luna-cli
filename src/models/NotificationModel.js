@@ -8,9 +8,9 @@ export default class NotificationModel {
     addNotification(obj) {
         //obj.entryTime = new DateTime();
         this.notifications.push(obj);
-    }
-
-    _notificationsProcess() {
-
+        Vue.notify({
+            title: obj.title,
+            text: obj.text
+        })
     }
 }

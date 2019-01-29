@@ -4,7 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <notifcations group="notify"/>
+      <notifications group="notify"/>
     </div>
   </div>
 </template>
@@ -20,8 +20,7 @@ export default {
   name: 'app',
   components: {
     StatusBar,
-    NavBar,
-    Notification
+    NavBar
   }
 }
 </script>
