@@ -34,7 +34,7 @@
 <script>
 export default {
   name: 'Settings',
-  props: ['websocketService', 'notificationModel'],
+  props: ['websocketService'],
   methods: {
     saveAndConnect: function () {
       this.websocketService.connect();
@@ -51,7 +51,7 @@ export default {
     testNotify: function () {
       let title = "this is a test";
       let text = "this is also a test";
-      this.notificationModel.createSuccessNotification({
+      this.$notification.addNotififcation({
         title,
         text
       });

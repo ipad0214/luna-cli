@@ -1,6 +1,9 @@
 <template>
     <div class="notifactions">
         Hello world
+        <b-button @click="addNotification">
+            add One Notification
+        </b-button>
     </div>
 </template>
 
@@ -8,20 +11,21 @@
 
 export default {
     name: 'Notification',
-    props: ['notificationModel'],
     watch: {
-        notificationsModel: {
-            handler(val, oldVal) {
-                console.log("item changed");
-                console.log(val);
-            },
-            deep: true
+        notifications: function (newValue) {
+            console.log(newValue);
+        }
+    },
+    methods: {
+        addNotification: function () {
+            this.$notifications.addNotification({
+                title: 'test'
+            })
         }
     },
     mounted: function () {
-        console.log(this.notificationModel.notifications);
+        console.log(this.$notifications);
     }
-
 }
 </script>
 

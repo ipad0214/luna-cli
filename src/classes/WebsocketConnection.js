@@ -24,10 +24,6 @@ export default class WebsocketConnection {
 
     _onOpen = () => {
         this.connectionStatus = connectionStates.ONLINE;
-        this._notifcationModel.createSuccessNotification({
-            title: 'Websocket connected',
-            text: 'Connection to drone established'
-        })
     }
 
     _onMessage = (data) => {
@@ -38,26 +34,21 @@ export default class WebsocketConnection {
     
     _onClose = () => {
         this.connectionStatus = connectionStates.OFFLINE;
-        this._notifcationModel.createWarningNotification({
-            title: 'Websocket disconnected',
-            text: 'Connection to drone terminated'
-        });
+        if (event.code === 1006) {
+            
+        }
     }
 
-    _onError = () => {
+    _onError = (event) => {
         this.connectionStatus = connectionStates.ERROR;
-        this._notifcationModel.createErrorNotification({
-            title: 'Websocket disconnected unexpected',
-            text: 'Websocket connection failure. Drone out of control'
-        });
+        if (event.currentTarget.readyState !== 3) {
+            
+        }
     }
 
     send = (msg) => {
         if(this._websocket === undefined || this._websocket === null || this._websocket.readyState === this._websocket.CLOSED) {
-            this._notifcationModel.createWarningNotification({
-                title: 'Websocket is not connected',
-                text: 'Create a conneciton to start again'
-            })
+            
             return;
         } 
 
@@ -71,9 +62,6 @@ export default class WebsocketConnection {
         this._websocket.onerror = this._onError;
         this._websocket.onclose = this._onClose;
 
-        this._notifcationModel.createErrorNotification({
-            name: 'Websocket cant connect',
-            text: 'Make sure that your drone and the remote control is booted correctly'
-        });
+        
     }
 }

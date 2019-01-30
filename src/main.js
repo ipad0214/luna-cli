@@ -4,7 +4,7 @@ import RouterFactory from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 
-import NotificationModel from '@/models/NotificationModel'
+import notification from '@/models/NotificationModel'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faOilCan, faCogs, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -20,22 +20,18 @@ library.add(faCoffee, faOilCan, faCogs, faHome);
 
 Vue.use(BootstrapVue);
 Vue.use(Notifications);
+Vue.use(notification);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-const notificationModel = new NotificationModel();
-const websocketConnection = new WebsocketConnection(connectionCredentials, notificationModel);
+const websocketConnection = new WebsocketConnection(connectionCredentials);
 const messageService = new Messages(websocketConnection);
-const routerFactory = new RouterFactory(notificationModel, websocketConnection, messageService);
+const routerFactory = new RouterFactory(websocketConnection, messageService);
 const router = routerFactory.createRouter();
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
-  render: h => h(App, {
-    props: {
-      notificationModel: notificationModel
-    }
-  })
+  render: h => h(App)
 }).$mount('#app')
