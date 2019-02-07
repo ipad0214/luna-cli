@@ -6,8 +6,7 @@ import Settings from './views/Settings.vue'
 Vue.use(Router)
 
 export default class RouterFactory {
-  constructor(notificationModel, websocketConnection, messageService) {
-    this._notifcationModel = notificationModel;
+  constructor(websocketConnection, messageService) {
     this._messageService = messageService;
     this._websocketConnection = websocketConnection;
   }
@@ -21,7 +20,6 @@ export default class RouterFactory {
           component: Dashboard,
           props: (route) => ({
             messageService: this._messageService,
-            notificationModel: this._notifcationModel,
             ...route.params
           })
         },
@@ -31,7 +29,6 @@ export default class RouterFactory {
           component: Settings,
           props: (route) => ({
             websocketService: this._websocketConnection,
-            notificationModel: this._notifcationModel,
             ...route.params
           })
         }

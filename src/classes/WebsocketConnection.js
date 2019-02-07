@@ -1,5 +1,7 @@
 import * as connectionStates from './ConnectionStatus';
 
+import Vue from 'vue';
+
 export default class WebsocketConnection {
     constructor(connectionCredentials={
         ip: "",
@@ -16,6 +18,8 @@ export default class WebsocketConnection {
         if(connectionCredentials.autoReconnect !== "false") {
             this.connect();
         }
+
+        console.log(Vue.notifications);
     }
 
     registerMessageListener(func) {
@@ -61,7 +65,5 @@ export default class WebsocketConnection {
         this._websocket.onmessage = this._onMessage;
         this._websocket.onerror = this._onError;
         this._websocket.onclose = this._onClose;
-
-        
     }
 }

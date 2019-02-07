@@ -1,30 +1,51 @@
 <template>
     <div class="notifactions">
-        Hello world
-        <b-button @click="addNotification">
-            add One Notification
+        <span>{{ getWarningCount }}</span>
+        <span>{{ getNotifyCount }}</span>
+        <span>{{ getErrorCount }}</span>
+        <b-button @click="addError">
+            add Error
+        </b-button>
+        <b-button @click="addNotify">
+            add Notify
+        </b-button>
+        <b-button @click="addWarning">
+            add Warning
         </b-button>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'Notification',
-    watch: {
-        notifications: function (newValue) {
-            console.log(newValue);
-        }
+    computed: {
+        notificationsCount() {
+            return this.$store.getters.notificationsCount();
+        },
+        ...mapState(["notifications"]),
+        ...mapGetters(["getErrorCount", "getNotifyCount", "getWarningCount"])
     },
     methods: {
-        addNotification: function () {
-            this.$notifications.addNotification({
-                title: 'test'
-            })
-        }
-    },
-    mounted: function () {
-        console.log(this.$notifications);
+        addError: function () {
+            this.$store.state.notifications.push({
+                title: 'test',
+                status: 'error'
+            });
+        },
+        addWarning: function () {
+            this.$store.state.notifications.push({
+                title: 'test',
+                status: 'warning'
+            });
+        },
+        addNotify: function () {
+            this.$store.state.notifications.push({
+                title: 'test',
+                status: 'notify'
+            });
+        },
     }
 }
 </script>
