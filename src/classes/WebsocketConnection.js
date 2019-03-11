@@ -7,8 +7,8 @@ export default class WebsocketConnection {
         ip: "",
         port: "",
         autoReconnect: false
-    }, notificationModel)  {
-        this._notifcationModel = notificationModel;
+    })  {
+        this._errorListener = [];
         this._listeners = [];
         this._websocket = null;
         this.ip = connectionCredentials.ip;
@@ -19,11 +19,20 @@ export default class WebsocketConnection {
             this.connect();
         }
 
-        console.log(Vue.notifications);
+        // window.testError = () => {
+        //     console.log(this._errorListener);
+        //     this._errorListener.forEach((listener) => {
+        //         listener('this is a test');
+        //     })
+        // }
     }
 
     registerMessageListener(func) {
         this._listeners.push(func);
+    }
+
+    registerErrorListener(func) {
+        this._errorListener.push(func);
     }
 
     _onOpen = () => {
@@ -45,6 +54,9 @@ export default class WebsocketConnection {
 
     _onError = (event) => {
         this.connectionStatus = connectionStates.ERROR;
+        this._errorListener.forEach((listener) => {
+            listener(event);
+        });
         if (event.currentTarget.readyState !== 3) {
             
         }

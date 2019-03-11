@@ -1,17 +1,8 @@
 <template>
     <div class="notifactions">
-        <span>{{ getWarningCount }}</span>
-        <span>{{ getNotifyCount }}</span>
-        <span>{{ getErrorCount }}</span>
-        <b-button @click="addError">
-            add Error
-        </b-button>
-        <b-button @click="addNotify">
-            add Notify
-        </b-button>
-        <b-button @click="addWarning">
-            add Warning
-        </b-button>
+        <span v-if="getWarningCount > 0">{{ getWarningCount }}</span>
+        <span v-if="getNotifyCount > 0">{{ getNotifyCount }}</span>
+        <span v-if="getErrorCount > 0">{{ getErrorCount }}</span>
     </div>
 </template>
 
@@ -25,28 +16,8 @@ export default {
             return this.$store.getters.notificationsCount();
         },
         ...mapState(["notifications"]),
-        ...mapGetters(["getErrorCount", "getNotifyCount", "getWarningCount"])
+        ...mapGetters(["getErrorCount", "getNotifyCount", "getWarningCount", "getNotificationCount"])
     },
-    methods: {
-        addError: function () {
-            this.$store.state.notifications.push({
-                title: 'test',
-                status: 'error'
-            });
-        },
-        addWarning: function () {
-            this.$store.state.notifications.push({
-                title: 'test',
-                status: 'warning'
-            });
-        },
-        addNotify: function () {
-            this.$store.state.notifications.push({
-                title: 'test',
-                status: 'notify'
-            });
-        },
-    }
 }
 </script>
 
@@ -55,9 +26,10 @@ export default {
 
     .notifactions {
         position: absolute;
+        text-align: center;
         top: 0px;
         right: 0px;
-        width: 20rem;
+        min-width: 3rem;
         background-color: red;
     }
 </style>

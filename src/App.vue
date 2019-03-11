@@ -23,6 +23,16 @@ export default {
     StatusBar,
     NavBar,
     Notification
+  },
+  mounted: function () {
+    window.addTestNotification = (type) => {
+      this.$store.commit('addNotification', {
+        type: type,
+        group: 'standard',
+        title: 'test Error', 
+        msg: 'some-Test'
+      });
+    }
   }
 }
 </script>
