@@ -4,7 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <notifications group="standard"/>
+      <notifications group="standard" position="center top"/>
       <Notification />
     </div>
   </div>

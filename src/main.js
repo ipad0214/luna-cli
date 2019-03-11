@@ -23,7 +23,7 @@ Vue.use(Notifications);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-const websocketConnection = new WebsocketConnection(connectionCredentials);
+const websocketConnection = new WebsocketConnection(connectionCredentials, store);
 const messageService = new Messages(websocketConnection);
 const routerFactory = new RouterFactory(websocketConnection, messageService);
 const router = routerFactory.createRouter();

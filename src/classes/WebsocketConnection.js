@@ -7,8 +7,8 @@ export default class WebsocketConnection {
         ip: "",
         port: "",
         autoReconnect: false
-    })  {
-        this._errorListener = [];
+    }, store)  {
+        this._store = store;
         this._listeners = [];
         this._websocket = null;
         this.ip = connectionCredentials.ip;
@@ -31,10 +31,6 @@ export default class WebsocketConnection {
         this._listeners.push(func);
     }
 
-    registerErrorListener(func) {
-        this._errorListener.push(func);
-    }
-
     _onOpen = () => {
         this.connectionStatus = connectionStates.ONLINE;
     }
@@ -54,9 +50,6 @@ export default class WebsocketConnection {
 
     _onError = (event) => {
         this.connectionStatus = connectionStates.ERROR;
-        this._errorListener.forEach((listener) => {
-            listener(event);
-        });
         if (event.currentTarget.readyState !== 3) {
             
         }
@@ -77,5 +70,16 @@ export default class WebsocketConnection {
         this._websocket.onmessage = this._onMessage;
         this._websocket.onerror = this._onError;
         this._websocket.onclose = this._onClose;
+
+        setTimeout(() => {
+            if(this.readyState !== 1) {
+                this._store.commit('addNotification', {
+                    type: 'error',
+                    group: 'standard',
+                    title: "Websocket isn't connected", 
+                    msg: "Can't connect to server. Check if the server is available."
+                });
+            }
+        }, 1000);
     }
 }
