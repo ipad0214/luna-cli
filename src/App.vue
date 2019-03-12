@@ -5,7 +5,6 @@
       <NavBar />
       <router-view class="template-container"/>
       <notifications group="standard" position="center top"/>
-      <Notification />
     </div>
   </div>
 </template>
@@ -13,7 +12,6 @@
 <script>
 import StatusBar from '@/components/StatusBar'
 import NavBar from '@/components/NavBar'
-import Notification from '@/components/Notification'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -21,8 +19,7 @@ export default {
   name: 'app',
   components: {
     StatusBar,
-    NavBar,
-    Notification
+    NavBar
   },
   mounted: function () {
     window.addTestNotification = (type) => {
@@ -32,6 +29,10 @@ export default {
         title: 'test Error', 
         msg: 'some-Test'
       });
+    }
+
+    window.deleteNotificationWithId = (id) => {
+      this.$store.commit('deleteNotificationWithId', id);
     }
   }
 }

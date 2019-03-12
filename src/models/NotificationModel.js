@@ -12,13 +12,13 @@ export default new Vuex.Store({
             return state.notifications.length;
         },
         getErrorCount: state => {
-            return state.notifications.filter(item => item.status === "error").length;
+            return state.notifications.filter(item => item.type === "error").length;
         },
         getNotifyCount: state => {
-            return state.notifications.filter(item => item.status === "notify").length;
+            return state.notifications.filter(item => item.type === "notify").length;
         },
         getWarningCount: state => {
-            return state.notifications.filter(item => item.status === "warn").length;
+            return state.notifications.filter(item => item.type === "warn").length;
         }
     },
     mutations: {
@@ -26,8 +26,16 @@ export default new Vuex.Store({
             state.notifications.push({
                 title: payload.title,
                 msg: payload.msg,
-                status: payload.type,
-                group: payload.group
+                type: payload.type,
+                group: payload.group,
+                id: this.getters.getNotificationCount + 1,
+                delete: () => {
+                    let index = state.notifications.map((item) => {
+                        return item.id;
+                    }).indexOf(id)
+        
+                    state.notifications.splice(index, 1);
+                }
             });
 
             Vue.notify({
@@ -36,6 +44,13 @@ export default new Vuex.Store({
                 title: payload.title,
                 text: payload.msg
             });
+        },
+        deleteNotificationWithId(state, id) {
+            let index = state.notifications.map((item) => {
+                return item.id;
+            }).indexOf(id)
+
+            state.notifications.splice(index, 1);
         }
     }
 });

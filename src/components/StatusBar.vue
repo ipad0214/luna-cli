@@ -1,13 +1,22 @@
 <template>
   <div class="statusbar">
     <div class="logo"></div>
-    <div class="statusbar-content">LUNA</div>
+    <div class="statusbar-content">
+      <span>LUNA</span>
+      <Notification />
+      <div>Statusicons</div>
+    </div>
   </div>
 </template>
 
 <script>
+import Notification from '@/components/Notification'
+
 export default {
-  name: 'statusbar'
+  name: 'statusbar',
+  components: {
+    Notification
+  }
 }
 </script>
 
@@ -30,6 +39,9 @@ export default {
     }
 
     .statusbar-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       min-width: calc(100%-5rem);
       border-bottom: 1px solid black;
       height: 100%;

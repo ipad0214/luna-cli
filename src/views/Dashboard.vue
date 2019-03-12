@@ -46,8 +46,9 @@ export default {
 
 <style lang="scss">
   .engines {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 </style>

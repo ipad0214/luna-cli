@@ -6,7 +6,7 @@ import Notifications from 'vue-notification'
 
 import store from './models/NotificationModel';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faOilCan, faCogs, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import WebsocketConnection from '@/classes/WebsocketConnection'
 import Messages from '@/classes/Messages'
@@ -16,7 +16,7 @@ if (connectionCredentials) {
   connectionCredentials = JSON.parse(connectionCredentials);
 }
 
-library.add(faCoffee, faOilCan, faCogs, faHome);
+library.add(faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes);
 
 Vue.use(BootstrapVue);
 Vue.use(Notifications);
