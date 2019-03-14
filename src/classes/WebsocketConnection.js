@@ -1,13 +1,13 @@
 import * as connectionStates from './ConnectionStatus';
 
-import Vue from 'vue';
 
 export default class WebsocketConnection {
     constructor(connectionCredentials={
         ip: "",
         port: "",
         autoReconnect: false
-    }, store)  {
+    }, store, router)  {
+        this._router = router;
         this._store = store;
         this._listeners = [];
         this._websocket = null;
@@ -77,7 +77,10 @@ export default class WebsocketConnection {
                     type: 'error',
                     group: 'standard',
                     title: "Websocket isn't connected", 
-                    msg: "Can't connect to server. Check if the server is available."
+                    msg: "Can't connect to server. Check if the server is available.",
+                    callback: () => {
+                        this._router.push('settings');
+                    }
                 });
             }
         }, 1000);

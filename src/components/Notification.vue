@@ -1,6 +1,6 @@
 <template>
-    <div class="notifications-container" @click="toggleNotificationList">
-        <div class="notifications-quickview-container">
+    <div class="notifications-container">
+        <div class="notifications-quickview-container" @click="toggleNotificationList">
             <div class="notifactions-quickview">
                 <div class="warn" v-if="getWarningCount > 0">
                     <font-awesome-icon icon="exclamation-triangle"/><span>{{ getWarningCount }}</span>
@@ -14,10 +14,21 @@
             </div>
         </div>
         
-        <!-- <div class="notifications-list slide-in" v-bind:class="{ show: showNotificationList }"> -->
-        <div class="notifications-list" v-if="showNotificationList">
+        <div class="notifications-list slide-in" v-bind:class="{ show: showNotificationList }">
             <div class="notification-item" v-for="notification in notifications" :key="notification.id">
-                {{notification.id}} // {{notification.title}} <font-awesome-icon icon="times" @click="notification.delete"/>
+                <div>
+                    <div @click="notification.callback" class="notification-icon">
+                        <font-awesome-icon icon="exclamation-triangle" v-if="notification.type == 'warn'"/>
+                        <font-awesome-icon icon="info" v-if="notification.type == 'notify'"/>
+                        <font-awesome-icon icon="times-circle" v-if="notification.type == 'error'"/>
+                    </div>
+                    <div @click="notification.callback">
+                        {{notification.title}}
+                    </div>
+                    <div class="close-icon" @click="notification.delete">
+                        <font-awesome-icon icon="times"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,14 +40,20 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     name: 'Notification',
     computed: {
+        ...mapGetters(["getErrorCount", "getNotifyCount", "getWarningCount", "getNotificationCount"]),
         notificationsCount() {
-            return this.$store.getters.notificationsCount();
+            return this.getErrorCount;
         },
         ...mapState({
             notifications: state => state.notifications
-        }),
-        // ...mapState(["notifications"]),
-        ...mapGetters(["getErrorCount", "getNotifyCount", "getWarningCount", "getNotificationCount"])
+        })       
+    },
+    watch: {
+        notificationsCount: function(val) {
+            if(val === 0) {
+                this.showNotificationList = false;
+            }
+        }
     },
     methods: {
         toggleNotificationList() {
@@ -85,13 +102,51 @@ export default {
         
 
         .notifications-list {
-            height: 10rem;
+            height: 0.1rem;
             width: 30rem;
-            background-color: red;
+            position: relative;
+            background-color: $background;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 0px 8px 35px 10px rgba(112,112,112,0.35);
 
             .notification-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 width: 100%;
                 height: 2rem;
+                border-bottom: 1px solid rgba(178, 178, 178, 0.2);
+
+                &:hover{
+                    background-color: $link-selected;
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    .close-icon {
+                        &:hover {
+                            color: red;
+                        }
+
+                        margin-right: .5rem;
+                        margin-top: .2rem;
+
+                        cursor: pointer;
+                    }
+
+                    .notification-icon {
+                        margin-top: .2rem;
+                        display: flex;
+                        width: 2rem;
+                        justify-content: center;
+                        flex-direction: row;
+                    }
+                }
             }
         }
 

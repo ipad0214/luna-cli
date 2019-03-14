@@ -4,7 +4,7 @@
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
-      <notifications group="standard" position="center top"/>
+      <notifications group="standard" position="bottom right"/>
     </div>
   </div>
 </template>
@@ -27,7 +27,10 @@ export default {
         type: type,
         group: 'standard',
         title: 'test Error', 
-        msg: 'some-Test'
+        msg: 'some-Test',
+        callback: () => {
+          console.log("GOT TO ROOUT CAUSE");
+        }
       });
     }
 

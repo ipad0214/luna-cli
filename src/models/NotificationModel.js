@@ -23,12 +23,14 @@ export default new Vuex.Store({
     },
     mutations: {
         addNotification(state, payload) {
+            let id = this.getters.getNotificationCount + 1
             state.notifications.push({
                 title: payload.title,
                 msg: payload.msg,
                 type: payload.type,
                 group: payload.group,
-                id: this.getters.getNotificationCount + 1,
+                id: id,
+                callback: payload.callback ? payload.callback : () => { return; },
                 delete: () => {
                     let index = state.notifications.map((item) => {
                         return item.id;
