@@ -37,6 +37,24 @@ export default {
     window.deleteNotificationWithId = (id) => {
       this.$store.commit('deleteNotificationWithId', id);
     }
+
+    const websocket = this.$root.websocketConnection;
+    
+    if(websocket.ip !== "" && websocket.port !== "" && websocket.autoReconnect === "true") {
+      websocket.connect((connectionFailed) => {
+        if(connectionFailed) {
+          this.$store.commit('addNotification', {
+            type: 'error',
+            group: 'standard',
+            title: "Websocket isn't connected", 
+            msg: "Can't connect to server. Check if the server is available.",
+            callback: () => {
+                this.$router.push('settings');
+            }
+          });
+        }
+      });
+    }
   }
 }
 </script>

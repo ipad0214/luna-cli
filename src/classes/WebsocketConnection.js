@@ -6,25 +6,14 @@ export default class WebsocketConnection {
         ip: "",
         port: "",
         autoReconnect: false
-    }, store, router)  {
-        this._router = router;
+    }, store)  {
         this._store = store;
         this._listeners = [];
         this._websocket = null;
         this.ip = connectionCredentials.ip;
         this.port = connectionCredentials.port;
+        this.autoReconnect = connectionCredentials.autoReconnect;
         this.connectionStatus = connectionStates.OFFLINE;       
-
-        if(connectionCredentials.autoReconnect !== "false") {
-            this.connect();
-        }
-
-        // window.testError = () => {
-        //     console.log(this._errorListener);
-        //     this._errorListener.forEach((listener) => {
-        //         listener('this is a test');
-        //     })
-        // }
     }
 
     registerMessageListener(func) {
@@ -64,7 +53,7 @@ export default class WebsocketConnection {
         this._websocket.send(msg);
     }
 
-    connect() {
+    connect(callback) {
         this._websocket = new WebSocket("ws://" + this.ip + ":" + this.port);
         this._websocket.onopen = this._onOpen;
         this._websocket.onmessage = this._onMessage;
@@ -72,17 +61,7 @@ export default class WebsocketConnection {
         this._websocket.onclose = this._onClose;
 
         setTimeout(() => {
-            if(this.readyState !== 1) {
-                this._store.commit('addNotification', {
-                    type: 'error',
-                    group: 'standard',
-                    title: "Websocket isn't connected", 
-                    msg: "Can't connect to server. Check if the server is available.",
-                    callback: () => {
-                        this._router.push('settings');
-                    }
-                });
-            }
+            callback(this.readyState !== 1);
         }, 1000);
     }
 }

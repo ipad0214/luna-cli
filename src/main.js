@@ -33,5 +33,10 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  data: function () {
+    return {
+      websocketConnection: websocketConnection
+    }
+  },
   render: h => h(App)
 }).$mount('#app')
