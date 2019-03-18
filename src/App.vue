@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-  name: 'app',
+  name: 'app',  
   components: {
     StatusBar,
     NavBar
@@ -29,7 +29,7 @@ export default {
         title: 'test Error', 
         msg: 'some-Test',
         callback: () => {
-          console.log("GOT TO ROOUT CAUSE");
+          console.log("GOT TO ROOT CAUSE");
         }
       });
     }

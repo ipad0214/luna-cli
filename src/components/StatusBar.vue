@@ -4,18 +4,20 @@
     <div class="statusbar-content">
       <span>LUNA</span>
       <Notification />
-      <div>Statusicons</div>
+      <StatusIcons />
     </div>
   </div>
 </template>
 
 <script>
 import Notification from '@/components/Notification'
+import StatusIcons from '@/components/statusbar/StatusIcons'
 
 export default {
   name: 'statusbar',
   components: {
-    Notification
+    Notification,
+    StatusIcons
   }
 }
 </script>

@@ -3,6 +3,9 @@
         <router-link class="nav-link" to="/">
           <font-awesome-icon icon="home" />
         </router-link>
+        <router-link class="nav-link" to="/battery">
+          <font-awesome-icon icon="battery-full" />
+        </router-link>
         <router-link class="nav-link" to="/settings">
           <font-awesome-icon icon="cogs" />
         </router-link>
@@ -27,6 +30,12 @@ export default {
     min-height: 100%;
     border-right: 1px solid black;
     text-align: center;
+
+    .nav-link {
+      &:hover {
+        background-color: $link-selected;
+      }
+    }
     
       a {
         height: 3rem; 
