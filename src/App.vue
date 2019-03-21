@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <StatusBar />
+    <StatusBar v-bind:status="this.$root.messageService.data.status"/>
     <div class="content">
       <NavBar />
       <router-view class="template-container"/>
@@ -22,20 +22,8 @@ export default {
     NavBar
   },
   mounted: function () {
-    window.addTestNotification = (type) => {
-      this.$store.commit('addNotification', {
-        type: type,
-        group: 'standard',
-        title: 'test Error', 
-        msg: 'some-Test',
-        callback: () => {
-          console.log("GOT TO ROOT CAUSE");
-        }
-      });
-    }
-
-    window.deleteNotificationWithId = (id) => {
-      this.$store.commit('deleteNotificationWithId', id);
+    window.changeRemoteBatterySOC = (value) => {
+      this.$root.messageService.data.status.remoteBatterySOC = value/100;
     }
 
     const websocket = this.$root.websocketConnection;

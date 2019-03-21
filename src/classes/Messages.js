@@ -14,6 +14,14 @@ const gyroscope = () => {
     }
 }
 
+const status = (connectionStatus=false) => {
+    return {
+        remoteBatterySOC: 1,
+        droneBatterySOC: 1,
+        connection: connectionStatus
+    }
+}
+
 export default class Messages {
     constructor(websocket) {
         this.websocket = websocket;
@@ -22,7 +30,8 @@ export default class Messages {
             Echo: new engine(),
             Sierra: new engine(),
             Whisky: new engine(),
-            Gyroscope: new gyroscope()
+            Gyroscope: new gyroscope(),
+            status: new status()
         }
 
         this.websocket.registerMessageListener((data) => {

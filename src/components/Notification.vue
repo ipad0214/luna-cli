@@ -1,5 +1,5 @@
 <template>
-    <div class="notifications-container">
+    <div class="notifications-container" v-on:blur.native="closeNotificationList" v-on:focus.native="test">
         <div class="notifications-quickview-container" @click="toggleNotificationList">
             <div class="notifactions-quickview">
                 <div class="warn" v-if="getWarningCount > 0">
@@ -60,6 +60,12 @@ export default {
             if(this.getNotificationCount > 0) {
                 this.showNotificationList = !this.showNotificationList;
             }
+        },
+        closeNotificationList() {
+            console.log("BLUR");
+        },
+        test() {
+            console.log("focus!");
         }
     },
     data: () => {

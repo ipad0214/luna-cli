@@ -2,36 +2,50 @@
   <div class="settings">
     <div class="websocket">
       <h3>Websocket</h3>
-      <span>IP:</span>
-      <b-form-input v-model="ip"
-                type="text"
-                placeholder="IP"></b-form-input>
-      <span>Port:</span>
-      <b-form-input v-model="port"
-        type="text"
-        placeholder="Port"></b-form-input>
-      <div class="controls">
-        <b-form-checkbox id="autoReconnect"
-                  v-model="checked"
-                  value="true"
-                  unchecked-value="false">
-          AutoReconnect
-        </b-form-checkbox>
+      <div class="input-fields">
+        <div>
+          <span>IP:</span>
+          <b-form-input v-model="ip"
+                    type="text"
+                    placeholder="IP"></b-form-input>
+        </div>
+        <div>
+          <span>Port:</span>
+          <b-form-input v-model="port"
+            type="text"
+            placeholder="Port"></b-form-input>
+        </div>
+        <div class="controls">
+          <b-form-checkbox id="autoReconnect"
+                    v-model="checked"
+                    value="true"
+                    unchecked-value="false">
+            AutoReconnect
+          </b-form-checkbox>
+        </div>
+      </div>
+      <div class="buttons">
         <b-button :size="'small'" :variant="'primary'" @click="saveAndConnect">
           Connect
         </b-button>
         <b-button :size="'small'" :variant="'primary'" @click="saveCredentials">
-          Save Credentials to Storeage
+          Save credentials
         </b-button>
       </div>
     </div>
+    <StorageManager />
   </div>
 </template>
 
 <script>
+import StorageManager from '@/components/settings/StorageManager'
+
 export default {
   name: 'Settings',
   props: ['websocketService'],
+  components: {
+    StorageManager
+  },
   methods: {
     saveAndConnect: function () {
       this.websocketService.connect();
@@ -40,7 +54,8 @@ export default {
       let credentialsObj = {
         ip: this.websocketService.ip,
         port: this.websocketService.port,
-        autoReconnect: this.checked
+        autoReconnect: this.checked,
+        alias: 'Login credentials'
       }
 
       localStorage.setItem("credentials", JSON.stringify(credentialsObj));
@@ -80,6 +95,9 @@ export default {
 
 .settings {
   color: $font-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 
   .websocket {
     margin: 1rem 0 0 1rem;
@@ -90,6 +108,10 @@ export default {
       height: 100%;
       width: 100%;
       margin-top: 10px;
+    }
+
+    .buttons {
+      margin-top: 1rem;
     }
   }
 }

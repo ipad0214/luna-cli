@@ -4,7 +4,7 @@
     <div class="statusbar-content">
       <span>LUNA</span>
       <Notification />
-      <StatusIcons />
+      <StatusIcons v-bind:status="status"/>
     </div>
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
   components: {
     Notification,
     StatusIcons
-  }
+  },
+  props: ['status']
 }
 </script>
 

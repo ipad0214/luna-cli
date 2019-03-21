@@ -7,7 +7,7 @@ import Notifications from 'vue-notification'
 import store from './models/NotificationModel';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes, faBatteryEmpty, faBatteryFull, faBatteryHalf, 
-        faBatteryQuarter, faBatteryThreeQuarters } from '@fortawesome/free-solid-svg-icons'
+        faBatteryQuarter, faBatteryThreeQuarters, faWifi } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import WebsocketConnection from '@/classes/WebsocketConnection'
 import Messages from '@/classes/Messages'
@@ -18,7 +18,7 @@ if (connectionCredentials) {
 }
 
 library.add(faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes, faBatteryEmpty, faBatteryFull, faBatteryHalf, 
-  faBatteryQuarter, faBatteryThreeQuarters);
+  faBatteryQuarter, faBatteryThreeQuarters, faWifi);
 
 Vue.use(BootstrapVue);
 Vue.use(Notifications);
@@ -37,7 +37,8 @@ new Vue({
   store,
   data: function () {
     return {
-      websocketConnection: websocketConnection
+      websocketConnection: websocketConnection,
+      messageService: messageService
     }
   },
   render: h => h(App)
