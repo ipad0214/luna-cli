@@ -30,12 +30,17 @@ export default {
     },
     mounted: function () {
         for(let i = 0;  localStorage.length > i; i++) {
-            let item = localStorage.getItem(localStorage.key(i));
-            console.log(item);
-            this.items.push({
-                key: localStorage.key(i),
-                value: item
-            });
+            try {
+                let item = localStorage.getItem(localStorage.key(i));
+                console.log(item);
+                
+                this.items.push({
+                    key: localStorage.key(i),
+                    value: JSON.parse(item)
+                });
+            } catch (e) {
+                console.log("Error while parsing: " + localStorage.key(i));
+            }
         }
     }
 }

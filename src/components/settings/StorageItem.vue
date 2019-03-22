@@ -1,8 +1,10 @@
 <template>
-    <div class="item-header"  @click="deleteItem">
+    <div class="item-header"  @click="open = !open">
         <span>{{item.key}}</span>
         <div v-if="open">
-            hello world
+            <div v-for="(value, key) in item.value" :key="key">
+                {{key}} {{value}}
+            </div>
         </div>
         <div v-if="edit">
 
@@ -22,8 +24,7 @@ export default {
     },
     methods: {
         deleteItem() {
-            open != open;
-            console.log('delete storage item');
+
         }
     }
 }
@@ -36,8 +37,12 @@ export default {
         text-transform: uppercase;
         cursor: pointer;
 
-        &:hover {
+        span {
+            width: 100%;
+
+            &:hover {
             background-color: $link-selected;
+            }   
         }
     }
 </style>
