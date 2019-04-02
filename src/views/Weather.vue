@@ -1,6 +1,6 @@
 <template>
     <div class="weather-container">
-        weather {{temperature}}
+        weather {{temperature}} WIND AUS: {{wind.deg}}° GESCHWINDIGKEIT: {{wind.speed}} km\h
     </div>
 </template>
 
@@ -14,13 +14,15 @@ export default {
     },
     data: function() {
         return {
-            temperature: 0
+            temperature: 0,
+            wind: {}
         }
     },
     mounted: function () {
         console.log(getWeatherDataFromLocation(12,45, (data) => {
             console.log(data);
             this.temperature = data.main.temp;
+            this.wind = data.wind;
         }));
     },
     methods: {
