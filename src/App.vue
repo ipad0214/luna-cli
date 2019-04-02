@@ -12,6 +12,7 @@
 <script>
 import StatusBar from '@/components/StatusBar'
 import NavBar from '@/components/NavBar'
+import WeatherService from '@/classes/WeatherService'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 

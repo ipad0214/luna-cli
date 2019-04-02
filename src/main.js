@@ -3,11 +3,12 @@ import App from './App.vue'
 import RouterFactory from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Notifications from 'vue-notification'
+import './classes/FormatString'
 
 import store from './models/NotificationModel';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes, faBatteryEmpty, faBatteryFull, faBatteryHalf, 
-        faBatteryQuarter, faBatteryThreeQuarters, faWifi } from '@fortawesome/free-solid-svg-icons'
+        faBatteryQuarter, faBatteryThreeQuarters, faWifi, faSun, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import WebsocketConnection from '@/classes/WebsocketConnection'
 import Messages from '@/classes/Messages'
@@ -18,7 +19,7 @@ if (connectionCredentials) {
 }
 
 library.add(faCoffee, faOilCan, faCogs, faHome, faExclamationTriangle, faInfo, faStop, faTimesCircle, faTimes, faBatteryEmpty, faBatteryFull, faBatteryHalf, 
-  faBatteryQuarter, faBatteryThreeQuarters, faWifi);
+  faBatteryQuarter, faBatteryThreeQuarters, faWifi, faSun, faMapMarkedAlt);
 
 Vue.use(BootstrapVue);
 Vue.use(Notifications);
