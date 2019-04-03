@@ -167,6 +167,7 @@ export default {
             height: 10rem;
             width: 30rem;
             opacity: 1;
+            z-index: 2;
         }
     }
     

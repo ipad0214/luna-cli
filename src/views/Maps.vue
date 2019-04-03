@@ -18,26 +18,32 @@ export default {
     },
     data: function() {
         return {
-
+            map: null
         }
     },
     mounted: function () {
-        const map = new Map({
-            target: 'map',
-            layers: [
-                new TileLayer({
-                source: new OSM()
-                })
-            ],
-            view: new View({
-                center: [0, 0],
-                zoom: 0
-            })
+        let self = this;
+        let getGeoPromise = new Promise(function(resolve, reject) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                const coords = fromLonLat([pos.coords.longitude, pos.coords.latitude]);
+                const map = new Map({
+                    target: 'map',
+                    layers: [
+                        new TileLayer({
+                        source: new OSM()
+                        })
+                    ],
+                    view: new View({
+                        center: coords,
+                        zoom: 17
+                    })
+                });
+                resolve(map);
+            });
         });
 
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            const coords = fromLonLat([pos.coords.longitude, pos.coords.latitude]);
-            map.getView().animate({center: coords, zoom: 10});
+        getGeoPromise.then(function (fulfilled) {
+            self.map = fulfilled;
         });
     },
     methods: {
