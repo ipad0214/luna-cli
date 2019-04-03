@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getWeatherDataFromLocation } from '@/classes/WeatherService'
+import { getWeatherDataFromLocation, getWeatherForecastHourlyFromLocation } from '@/classes/WeatherService'
 
 export default {
     name: 'weather',
@@ -77,7 +77,13 @@ export default {
                     self.currentWeather = data;
                 };
 
+                let callbackForecast = (data) => {
+                    console.log(data);
+                   // self.currentWeather = data;
+                };
+
                 getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callback); 
+                getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callbackForecast); 
                 resolve(callback);
             });
         })
