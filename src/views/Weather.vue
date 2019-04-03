@@ -1,6 +1,40 @@
 <template>
     <div class="weather-container">
-        weather {{temperature}} WIND AUS: {{wind.deg}}° GESCHWINDIGKEIT: {{wind.speed}} km\h
+        <h1>{{currentWeather.name}}</h1>
+
+        <div class="section">
+            <h3>Temperature</h3>
+            <div class="lane">
+                <div class="lane-header">
+                    current
+                </div>
+                <div class="lane-value">
+                    {{currentWeather.main.temp}} °C
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section">
+            <h3>Wind</h3>
+            <div class="lane">
+                <div class="lane-header">
+                    Speed
+                </div>
+                <div class="lane-value">
+                    {{currentWeather.wind.speed}} m/s
+                </div>
+            </div>
+            <div class="lane">
+                <div class="lane-header">
+                    Direction
+                </div>
+                <div class="lane-value">
+                    {{currentWeather.wind.deg}}°
+                </div>
+            </div>
+        </div>
+        
     </div>
 </template>
 
@@ -14,16 +48,39 @@ export default {
     },
     data: function() {
         return {
-            temperature: 0,
-            wind: {}
+            currentWeather: {
+                main: {
+                    temp: 0
+                },
+                wind: {
+                    speed: 0,
+                    deg: 0,
+                }
+            },
+            forcastWeather: {
+                main: {
+                    temp: 0
+                },
+                wind: {
+                    speed: 0,
+                    deg: 0,
+                }
+            },
         }
     },
-    mounted: function () {
-        console.log(getWeatherDataFromLocation(12,45, (data) => {
-            console.log(data);
-            this.temperature = data.main.temp;
-            this.wind = data.wind;
-        }));
+    created: function () {
+        let self = this;
+        return new Promise(resolve => {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                let callback = (data) => {
+                    console.log(data);
+                    self.currentWeather = data;
+                };
+
+                getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callback); 
+                resolve(callback);
+            });
+        })
     },
     methods: {
         
@@ -39,5 +96,22 @@ export default {
         height: 100%;
         background-color: red;
         color: white;
+
+        .section {
+            .lane {
+                width: 15rem;
+                display: flex;
+                flex: row;
+                justify-content: flex-end;
+
+                .lane-header {
+                    width: 8rem;
+                } 
+
+                .lane-value {
+                    width: 7rem;
+                }
+            }
+        }
     }
 </style>
