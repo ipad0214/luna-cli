@@ -3,13 +3,39 @@
         <h1>{{currentWeather.name}}</h1>
 
         <div class="section">
-            <h3>Temperature</h3>
+            <h3>Overview</h3>
             <div class="lane">
                 <div class="lane-header">
-                    current
+                    Temperature
                 </div>
                 <div class="lane-value">
                     {{currentWeather.main.temp}} °C
+                </div>
+            </div>
+            <div class="lane">
+                <div class="lane-header">
+                    Humidity
+                </div>
+                <div class="lane-value">
+                    {{currentWeather.main.humidity}} %
+                </div>
+            </div>
+            <div class="lane">
+                <div class="lane-header">
+                    Pressure
+                </div>
+                <div class="lane-value">
+                    {{currentWeather.main.pressure}} hpa
+                </div>
+            </div>
+            <img v-bind:src="currentWeather.main.iconUrl" />
+            <!-- <span>{{currentWeather.weather[0].description}}</span> -->
+            <div class="lane">
+                <div class="lane-header">
+                    Rain
+                </div>
+                <div class="lane-value" v-if="'rain' in currentWeather && '1h' in currentWeather.rain">
+                    {{currentWeather.rain["1h"]}} mm
                 </div>
             </div>
         </div>
@@ -25,7 +51,7 @@
                     {{currentWeather.wind.speed}} m/s
                 </div>
             </div>
-            <div class="lane">
+            <div class="lane" v-if="currentWeather.wind.deg !== undefined">
                 <div class="lane-header">
                     Direction
                 </div>
@@ -85,6 +111,8 @@ export default {
                 getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callback); 
                 getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callbackForecast); 
                 resolve(callback);
+            }, function (error) {
+                console.log(error);
             });
         })
     },

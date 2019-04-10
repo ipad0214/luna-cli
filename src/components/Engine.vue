@@ -9,13 +9,13 @@
         <b-collapse class="mt-2" v-model="visible" id="engine-controls">
             <div>
                 <span>Value: </span>
-                <span>{{this.engine.value}}</span>
+                <span>{{this.engine.Value}}</span>
             </div>
             <div>
                 <b-progress class="mt-1" :max="100">
-                <b-progress-bar :value="this.engine.value*(6/10)" label="" variant="success"></b-progress-bar>
-                <b-progress-bar :value="this.engine.value*(2.5/10)" label="" variant="warning"></b-progress-bar>
-                <b-progress-bar :value="this.engine.value*(1.5/10)" label="" variant="danger"></b-progress-bar>
+                <b-progress-bar :value="this.engine.Value*(6/10)" label="" variant="success"></b-progress-bar>
+                <b-progress-bar :value="this.engine.Value*(2.5/10)" label="" variant="warning"></b-progress-bar>
+                <b-progress-bar :value="this.engine.Value*(1.5/10)" label="" variant="danger"></b-progress-bar>
                 </b-progress>
             </div>
         </b-collapse>
@@ -27,8 +27,8 @@ export default {
     name: 'engine',
     props: {
         engineData: {
-            status: '',
-            value: 0
+            Status: '',
+            Value: 0
         },
         messageService: {
             update: ''
@@ -45,18 +45,18 @@ export default {
     },
     methods: {
         engineStatusChangeEvent: function () {
-            if(this.engine.status !== 0) {
-                this.engine.status = 0;
+            if(this.engine.Status !== 0) {
+                this.engine.Status = 0;
             } else {
-                this.engine.status = 3;
+                this.engine.Status = 3;
             }
             
         }
     },
     watch: {
-        'engine.status': {
+        'engine.Status': {
             handler: function () {
-                switch(this.engine.status) {
+                switch(this.engine.Status) {
                     case 1: 
                         this.buttonText = 'IDLE' 
                         this.buttonVariant = 'warning'

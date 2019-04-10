@@ -14,7 +14,7 @@ import WebsocketConnection from '@/classes/WebsocketConnection'
 import Messages from '@/classes/Messages'
 
 let connectionCredentials = localStorage.getItem("credentials");
-if (connectionCredentials) {
+if (connectionCredentials !== null) {
   connectionCredentials = JSON.parse(connectionCredentials);
 }
 
@@ -26,7 +26,7 @@ Vue.use(Notifications);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-const websocketConnection = new WebsocketConnection(connectionCredentials, store, router);
+const websocketConnection = new WebsocketConnection(connectionCredentials === null ? undefined : connectionCredentials, store, router);
 const messageService = new Messages(websocketConnection);
 const routerFactory = new RouterFactory(websocketConnection, messageService);
 const router = routerFactory.createRouter();

@@ -1,10 +1,10 @@
 <template>
     <div class="gyroscope-template">
         <div class="video-wrapper">
-            <img :src="getImage('stall_indicator')" class="stall-indicator ah-position"/>
-            <img :src="getImage('artifical_horzion')" class="artifical-horizon ah-position"/>
-            <img :src="getImage('tilt_angle')" class="tilt-angle ah-position"/>
-            <img :src="getImage('turn_indicator')" class="turn-indicator ah-position"/>
+            <img :src="require('../assets/img/stall_indicator.svg')" class="stall-indicator ah-position"/>
+            <img :src="require('../assets/img/artifical_horzion.svg')" class="artifical-horizon ah-position"/>
+            <img :src="require('../assets/img/tilt_angle.svg')" class="tilt-angle ah-position"/>
+            <img :src="require('../assets/img/turn_indicator.svg')" class="turn-indicator ah-position"/>
             <img :src="this.ip" class="video"/>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
     data: function() {
         return {
             gyroscope: this.gyroscopeData,
-            
+            publicPath: process.env.BASER_URL
         }
     },
     computed: {

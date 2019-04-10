@@ -5,8 +5,13 @@
         <Engine v-bind:engineData="this.messageService.data.Echo" v-bind:messageService="this.messageService" name="Echo"/>
         <Engine v-bind:engineData="this.messageService.data.Sierra" v-bind:messageService="this.messageService" name="Sierra"/>
         <Engine v-bind:engineData="this.messageService.data.Whisky" v-bind:messageService="this.messageService" name="Whisky"/>
-        <b-button :size="'small'" :variant="'primary'" @click="startAllEngines">
-          Start all Engines
+        <b-button :size="'small'" :variant="'primary'" @click="startAllEngines" v-if="allEnginesOff">
+          Start <br />
+          all Engines
+        </b-button>
+        <b-button :size="'small'" :variant="'primary'" @click="shutdownAllEngines" v-show="!allEnginesOff">
+          Shutdown <br />
+          all Engines
         </b-button>
       </div>
     <div class="horizon">
@@ -33,12 +38,26 @@ export default {
   },
   methods: {
     startAllEngines: function () {
-      this.messageService.data.November.status = 1;
-      this.messageService.data.Echo.status = 1;
-      this.messageService.data.Sierra.status = 1;
-      this.messageService.data.Whisky.status = 1;
+      this.messageService.data.November.Status = 1;
+      this.messageService.data.Echo.Status = 1;
+      this.messageService.data.Sierra.Status = 1;
+      this.messageService.data.Whisky.Status = 1;
 
       this.messageService.update();
+    }, 
+    shutdownAllEngines: function () {
+      this.messageService.data.November.Status = 0;
+      this.messageService.data.Echo.Status = 0;
+      this.messageService.data.Sierra.Status = 0;
+      this.messageService.data.Whisky.Status = 0;
+
+      this.messageService.update();
+    }
+  },
+  computed: {
+    allEnginesOff: function () {
+      let data = this.messageService.data;
+        return data.November.Status === 0 && data.Echo.Status === 0 && data.Sierra.Status === 0 && data.Whisky.Status === 0
     }
   }
 }

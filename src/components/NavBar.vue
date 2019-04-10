@@ -6,14 +6,14 @@
         <router-link class="nav-link" to="/battery">
           <font-awesome-icon icon="battery-full" />
         </router-link>
-        <router-link class="nav-link" to="/settings">
-          <font-awesome-icon icon="cogs" />
-        </router-link>
         <router-link class="nav-link" to="/weather">
           <font-awesome-icon icon="sun" />
         </router-link>
         <router-link class="nav-link" to="/maps">
           <font-awesome-icon icon="map-marked-alt" />
+        </router-link>
+        <router-link class="nav-link" to="/settings">
+          <font-awesome-icon icon="cogs" />
         </router-link>
     </div>
 </template>
