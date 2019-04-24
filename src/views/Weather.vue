@@ -60,17 +60,22 @@
                 </div>
             </div>
         </div>
-        
+
+        <DailyForecast forecast="forcastWeather" />
     </div>
 </template>
 
 <script>
 import { getWeatherDataFromLocation, getWeatherForecastHourlyFromLocation } from '@/classes/WeatherService'
+import DailyForecast from '@/components/weather/DailyForecast'
 
 export default {
     name: 'weather',
     props: {
         
+    },
+    components: {
+        DailyForecast
     },
     data: function() {
         return {
@@ -83,15 +88,7 @@ export default {
                     deg: 0,
                 }
             },
-            forcastWeather: {
-                main: {
-                    temp: 0
-                },
-                wind: {
-                    speed: 0,
-                    deg: 0,
-                }
-            },
+            forcastWeather: {},
         }
     },
     created: function () {
@@ -99,17 +96,16 @@ export default {
         return new Promise(resolve => {
             navigator.geolocation.getCurrentPosition(function(pos) {
                 let callback = (data) => {
-                    console.log(data);
                     self.currentWeather = data;
                 };
 
                 let callbackForecast = (data) => {
-                    console.log(data);
-                   // self.currentWeather = data;
+                    self.forecastWeather = data;
                 };
 
                 getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callback); 
-                getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callbackForecast); 
+                // getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callbackForecast);
+                getWeatherForecastHourlyFromLocation(pos.coords.latitude, pos.coords.longitude, callbackForecast);
                 resolve(callback);
             }, function (error) {
                 console.log(error);
