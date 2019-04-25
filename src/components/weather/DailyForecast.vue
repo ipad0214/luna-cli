@@ -1,56 +1,64 @@
+<template>
+    <div class="small">
+        <line-chart :chart-data="datacollection"></line-chart>
+    </div>
+</template>
+
 <script>
-    import { Line } from 'vue-chartjs'
+    import LineChart from '@/classes/charts/LineChart.js';
 
     export default {
-        extends: Line,
-        name: "DailyForecast",
+        components: {
+            LineChart
+        },
         props: ['forecast'],
         data () {
             return {
-                datacollection: {
-                    //Data to be represented on x-axis
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [
-                        {
-                            label: 'Data One',
-                            backgroundColor: '#f87979',
-                            pointBackgroundColor: 'white',
-                            borderWidth: 1,
-                            pointBorderColor: '#249EBF',
-                            //Data to be represented on y-axis
-                            data: [40, 20, 30, 50, 90, 10, 20, 40, 50, 70, 90, 100]
-                        }
-                    ]
-                },
-                //Chart.js options that controls the appearance of the chart
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            },
-                            gridLines: {
-                                display: true
-                            }
-                        }],
-                        xAxes: [ {
-                            gridLines: {
-                                display: false
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: true
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
+                datacollection: null
             }
         },
         mounted () {
-            //renderChart function renders the chart with the datacollection and options object.
-            console.log(this.forecast);
-            this.renderChart(this.datacollection, this.options)
+            this.fillData();
+        },
+        watch: {
+            forecast (newData) {
+                let today = new Date();
+                let todayUpdates = newData.list.filter(elem => new Date(elem.dt*1000).getDate() === today.getDate());
+
+                let wind = todayUpdates.map(elem => elem.wind);
+                let speed = wind.map(elem => elem.speed);
+                let times = todayUpdates.map(elem => new Date(elem.dt*1000).getHours() + ":00");
+
+                this.$store.commit('addNotification', {
+                    type: 'warning',
+                    group: 'standard',
+                    title: "Wind is in dangerous area",
+                    msg: "Wind is going to be in a dangerous mode at: ",
+                    callback: () => {
+                        this.$router.push('weather');
+                    }
+                });
+
+                this.fillData(speed, times);
+            }
+        },
+        methods: {
+            fillData (data, time) {
+                this.datacollection = {
+                    labels: time,
+                    datasets: [
+                        {
+                            label: 'Speed',
+                            backgroundColor: '#359454',
+                            borderColor: '#359454',
+                            data: data,
+                            fill: false,
+                            pointRadios: 0.8
+                        }
+                    ]
+                }
+
+            }
         }
     }
 </script>
@@ -58,6 +66,7 @@
 <style lang="scss">
     @import '@/assets/colors.scss';
 
-
-
+    .small {
+        width: 30rem;
+    }
 </style>

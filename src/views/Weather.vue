@@ -61,7 +61,11 @@
             </div>
         </div>
 
-        <DailyForecast forecast="forcastWeather" />
+        <div class="section">
+            <h3>Wind Forecast</h3>
+            <DailyForecast :forecast="forcastWeather" />
+        </div>
+
     </div>
 </template>
 
@@ -88,7 +92,11 @@ export default {
                     deg: 0,
                 }
             },
-            forcastWeather: {},
+            forcastWeather: {
+                main: {
+                    temp: 0
+                }
+            },
         }
     },
     created: function () {
@@ -100,7 +108,7 @@ export default {
                 };
 
                 let callbackForecast = (data) => {
-                    self.forecastWeather = data;
+                    self.forcastWeather = data;
                 };
 
                 getWeatherDataFromLocation(pos.coords.latitude,pos.coords.longitude, callback); 
@@ -112,9 +120,11 @@ export default {
             });
         })
     },
-    methods: {
-        
-    },
+    watch: {
+        forecastWeather (test) {
+            console.log(test);
+        }
+    }
 }
 </script>
 
