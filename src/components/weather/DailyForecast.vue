@@ -29,15 +29,17 @@
                 let speed = wind.map(elem => elem.speed);
                 let times = todayUpdates.map(elem => new Date(elem.dt*1000).getHours() + ":00");
 
-                this.$store.commit('addNotification', {
-                    type: 'warning',
-                    group: 'standard',
-                    title: "Wind is in dangerous area",
-                    msg: "Wind is going to be in a dangerous mode at: ",
-                    callback: () => {
-                        this.$router.push('weather');
-                    }
-                });
+                if(wind.filter(elem => elem.speed > 5.0).length > 0) {
+                    this.$store.commit('addNotification', {
+                        type: 'warn',
+                        group: 'standard',
+                        title: "Wind is in dangerous area",
+                        msg: "Wind is going to be in a dangerous mode at: ",
+                        callback: () => {
+                            this.$router.push('weather');
+                        }
+                    });
+                }
 
                 this.fillData(speed, times);
             }

@@ -25,7 +25,7 @@ export default {
   mounted: function () {
     window.changeRemoteBatterySOC = (value) => {
       this.$root.messageService.data.status.remoteBatterySOC = value/100;
-    }
+    };
 
     const websocket = this.$root.websocketConnection;
     
@@ -41,6 +41,18 @@ export default {
                 this.$router.push('settings');
             }
           });
+        }
+      });
+    }
+
+    window.addTestNotifaction = (type) => {
+      this.$store.commit('addNotification', {
+        type: type,
+        group: 'standard',
+        title: "test notification",
+        msg: "this is a test",
+        callback: () => {
+          this.$router.push('settings');
         }
       });
     }

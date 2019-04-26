@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     mutations: {
         addNotification(state, payload) {
-            let id = this.getters.getNotificationCount + 1
+            let id = this.getters.getNotificationCount + 1;
             state.notifications.push({
                 title: payload.title,
                 msg: payload.msg,
